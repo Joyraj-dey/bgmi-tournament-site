@@ -76,14 +76,36 @@
     <a class="btn" href="#registration">Register Now</a>
   </section>
   
-  <section class="categories" id="categories">
-    <h2>Choose Your Battle Format</h2>
-    <div class="category">Solo (1v1)</div>
-    <div class="category">Duo (2v2)</div>
-    <div class="category">Squad</div>
-    <div class="category">TDM</div>
-  </section>
-  
+  <section class="registration" id="registration">
+   <nav>
+  <button onclick="showSection('ongoing')">Ongoing</button>
+  <button onclick="showSection('upcoming')">Upcoming</button>
+  <button onclick="showSection('results')">Results</button>
+</nav>
+
+<section id="ongoing" class="tournament-section">
+  <div class="match-card">
+    <h3>Ongoing Match #1</h3>
+    <p>Mode: Squad | Map: Erangle | TPP</p>
+    <button onclick="openForm()">Join</button>
+  </div>
+</section>
+
+<section id="upcoming" class="tournament-section">
+  <div class="match-card">
+    <h3>Upcoming Match #2</h3>
+    <p>Date: 2025-06-28 | Time: 09:20 AM</p>
+    <p>Entry Fee: ₹10 | Per Kill: ₹6 | Map: Erangle</p>
+    <button onclick="openForm()">Join</button>
+  </div>
+</section>
+
+<section id="results" class="tournament-section">
+  <div class="match-card">
+    <h3>Result - Match #1</h3>
+    <p>Winner: PlayerXYZ | Kills: 12 | Prize: ₹500</p>
+  </div>
+</section> 
   <section class="registration" id="registration">
   <form id="bgmiForm" method="POST" action="https://script.google.com/macros/s/AKfycbzaB7evMEU29k98ryMcWK6LmqWpRawYLs-Pi8NyfJoz-lwggkqILVe_ww44MfIFIV8nmQ/exec">
   <input name="Full Name" type="text" placeholder="Full Name" required><br><br>
@@ -143,5 +165,21 @@
       });
     }
   </script>
+    <script>
+  function showSection(id) {
+    document.querySelectorAll('.tournament-section').forEach(section => {
+      section.style.display = 'none';
+    });
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function openForm() {
+    // Scroll to registration form
+    document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Load Upcoming section by default
+  window.onload = () => showSection('upcoming');
+    </script>
 </body>
 </html>
