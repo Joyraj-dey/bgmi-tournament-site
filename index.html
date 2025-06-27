@@ -83,27 +83,25 @@
     <div class="category">Squad</div>
     <div class="category">TDM</div>
   </section>
-
+  
   <section class="registration" id="registration">
-    <h2>Register For a Paid Match</h2>
-    <p>Fill out the form to join a paid match.</p>
+  <form id="bgmiForm" method="POST" action="https://script.google.com/macros/s/AKfycbzpHI72IHByUk1D3HqXRhSq9CDDbcYzbwhb8px3TtDih9WdFnvUkBtgejFyaL2fJwk06A/exec">
+  <input name="Full Name" type="text" placeholder="Full Name" required><br><br>
+  <input name="Whatsapp no" type="text" placeholder="WhatsApp Number" required><br><br>
+  <input name="BGMI Username" type="text" placeholder="BGMI Username" required><br><br>
+  <input name="BGMI User ID" type="text" placeholder="BGMI User ID" required><br><br>
 
-    <form action="https://script.google.com/macros/s/AKfycbzzw9M6uLFI8mGcCOJAQ_IkJCp02Z6yCwYHE1gAnEdj_1l85g15ZqiCfl0GV-kkEz0XSQ/exec" method="POST" enctype="application/json" onsubmit="submitForm(event)">
-      <input type="text" name="player_name" placeholder="Player Name" required><br><br>
-      <input type="text" name="whatsapp" placeholder="WhatsApp Number" required><br><br>
-      <input type="text" name="bgmi_username" placeholder="BGMI Username" required><br><br>
+  <select name="Match type" required>
+    <option value="" disabled selected>Select Match Type</option>
+    <option value="1v1">1v1</option>
+    <option value="2v2">2v2</option>
+    <option value="Squad">Squad</option>
+    <option value="TDM">TDM</option>
+  </select><br><br>
 
-      <select name="battle_type" required>
-        <option value="" disabled selected>Select Battle Type</option>
-        <option value="1v1">Solo (1v1)</option>
-        <option value="2v2">Duo (2v2)</option>
-        <option value="squad">Squad</option>
-        <option value="tdm">TDM</option>
-      </select><br><br>
-
-      <button type="submit">Submit</button>
-    </form>
-
+  <button type="submit">Submit</button>
+  </form>
+  
     <p>Send screenshot on WhatsApp: <strong><a href="https://wa.me/919395332708">9395332708</a></strong></p>
   </section>
 
