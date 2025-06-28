@@ -5,6 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BGMI Tournament Platform</title>
 <style>
+
+  .glow-quote {
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #00ff99;
+  text-shadow: 0 0 8px #00ff99, 0 0 16px #00ff99, 0 0 24px #00ff99;
+  animation: glow-pulse 2s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes glow-pulse {
+  0% {
+    text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99;
+  }
+  50% {
+    text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+  }
+  100% {
+    text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99;
+  }
+}
 body {
 font-family: Arial, sans-serif;
 background-color: #0f0f0f;
@@ -208,29 +231,26 @@ color: white;
 </section>
 
 <section class="registration" id="registration">
-<nav>
-<button onclick="showSection('ongoing')">Ongoing</button>
-<button onclick="showSection('upcoming')">Upcoming</button>
-<button onclick="showSection('results')">Results</button>
-</nav>
+  <nav>
+    <button onclick="showSection('upcoming')">Upcoming</button>
+    <button onclick="showSection('ongoing')">Ongoing</button>
+    <button onclick="showSection('results')">Results</button>
+  </nav>
 
-<section id="ongoing" class="tournament-section">
-  <div style="text-align: center; padding: 2rem;">
-    <h3>No ongoing matches right now.</h3>
-    <p>Please check back later!</p>
-  </div>
-</section>
-  
-<section id="upcoming" class="tournament-section">
-  <div id="upcoming-matches"></div>
-</section>
+  <section id="upcoming" class="tournament-section">
+    <div id="upcoming-matches"></div>
+  </section>
 
-<section id="results" class="tournament-section">
-  <div class="match-card">
-    <h3>Result - Match #1</h3>
-    <p>Winner: PlayerXYZ | Kills: 12 | Prize: ₹500</p>
-    <p style="margin-top: 10px; color: #ccc;">👑 Victory belongs to the brave! More matches coming soon.</p>
-  </div>
+  <section id="ongoing" class="tournament-section" style="display:none;">
+    <div id="ongoing-matches"></div>
+  </section>
+
+  <section id="results" class="tournament-section" style="display:none;">
+  <p class="glow-quote">
+    🏁 Victory belongs to the brave. More matches coming soon!
+  </p>
+  <div id="results-matches"></div>
+  </section>
 </section>
   
 <p>Send screenshot on WhatsApp: <strong><a href="https://wa.me/919395332708">9395332708</a></strong></p>
@@ -564,6 +584,55 @@ fetch(sheetURL)
     document.getElementById("upcoming-matches").innerHTML = `<p style="color:red;">Failed to load matches 😢</p>`;
     console.error("Sheet Error:", err);
   });
+  </script>
+  <script>
+  function showSection(id) {
+    document.querySelectorAll('.tournament-section').forEach(section => {
+      section.style.display = 'none';
+    });
+    document.getElementById(id).style.display = 'block';
+  }
+
+  // Load Upcoming by default
+  window.onload = () => showSection('upcoming');
+
+  fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGcleT-IyFNR1RpvZbd6CHrJOASVOU9SU2Dr8/exec")
+    .then(res => res.json())
+    .then(matches => {
+      const upcoming = document.getElementById("upcoming-matches");
+      const ongoing = document.getElementById("ongoing-matches");
+      const results = document.getElementById("results-matches");
+
+      upcoming.innerHTML = "";
+      ongoing.innerHTML = "";
+      results.innerHTML = "";
+
+      matches.forEach((match, index) => {
+        const card = document.createElement("div");
+        card.className = "match-card";
+        card.innerHTML = `
+          <h3>${match.match}</h3>
+          <p><strong>Map:</strong> ${match.map}</p>
+          <p><strong>Date:</strong> ${match.date}</p>
+          <p><strong>Time:</strong> ${match.time}</p>
+          <p><strong>Entry Fee:</strong> ${match.entryfee} | <strong>Per Kill:</strong> ${match.perkill}</p>
+          <p><strong>Match Type:</strong> ${match.matchtype}</p>
+        `;
+
+        if (match.status.toLowerCase() === "upcoming") {
+          card.innerHTML += `<button class="btn-orange" onclick="showPopupForm()">Join Now</button>`;
+          upcoming.appendChild(card);
+        } else if (match.status.toLowerCase() === "ongoing") {
+          ongoing.appendChild(card);
+        } else if (match.status.toLowerCase() === "completed") {
+          card.innerHTML += `
+            <p><strong>🏆 Winner:</strong> ${match.winner || "TBD"}</p>
+            <p><strong>💥 Kills:</strong> ${match.kills || "—"} | <strong>🎁 Prize:</strong> ${match.prize || "—"}</p>
+          `;
+          results.appendChild(card);
+        }
+      });
+    });
   </script>
 </body>
 </html>
