@@ -590,12 +590,18 @@ fetch(sheetURL)
   });
   </script>
   <script>
-  function showSection(id) {
-    document.querySelectorAll('.tournament-section').forEach(section => {
-      section.style.display = 'none';
-    });
-    document.getElementById(id).style.display = 'block';
-  }
+  let currentSection = 'upcoming'; // default section
+
+function showSection(id) {
+  if (id === currentSection) return; // Already open, do nothing
+
+  document.querySelectorAll('.tournament-section').forEach(section => {
+    section.style.display = 'none';
+  });
+
+  document.getElementById(id).style.display = 'block';
+  currentSection = id;
+}
 
   // Load Upcoming by default
   showSection('upcoming');
