@@ -92,7 +92,14 @@ transform: scale(1.05);
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   max-width: 90%;
 }
-
+.match-card {
+  background-color: #1e1e1e;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  max-width: 90%;
+}
 .match-card .match-info {
 flex-grow: 1;
 }
@@ -215,63 +222,9 @@ color: white;
 </section>
   
 <section id="upcoming" class="tournament-section">
-
-  <!-- MATCH 1 -->
-  <div class="match-card" id="match-1">
-    <h3>BGMI Solo Match #1</h3>
-    <p><strong>Date:</strong> 2025-06-30</p>
-    <p><strong>Time:</strong> 09:30 AM</p>
-    <p><strong>Entry Fee:</strong> ₹10</p>
-    <p><strong>Per Kill:</strong> ₹6</p>
-    <p><strong>Map:</strong> Erangle</p>
-    <p id="countdown-1" style="color: #00ff99; font-weight: bold;">Starts in: loading...</p>
-    <p id="players-1" style="color: #00ff99;">0/50 players joined</p>
-    <div style="background: #333; border-radius: 10px; overflow: hidden; height: 20px;">
-      <div id="bar-1" style="background: #00ff99; height: 100%; width: 0%; transition: width 0.3s;"></div>
-    </div>
-    <div id="join-1" style="text-align: center; margin-top: 10px;">
-      <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
-    </div>
-  </div>
-
-  <!-- MATCH 2 -->
-  <div class="match-card" id="match-2">
-    <h3>BGMI Duo Match #2</h3>
-    <p><strong>Date:</strong> 2025-06-30</p>
-    <p><strong>Time:</strong> 05:00 PM</p>
-    <p><strong>Entry Fee:</strong> ₹20</p>
-    <p><strong>Per Kill:</strong> ₹10</p>
-    <p><strong>Map:</strong> Livik</p>
-    <p id="countdown-2" style="color: #00ff99; font-weight: bold;">Starts in: loading...</p>
-    <p id="players-2" style="color: #00ff99;">0/50 players joined</p>
-    <div style="background: #333; border-radius: 10px; overflow: hidden; height: 20px;">
-      <div id="bar-2" style="background: #00ff99; height: 100%; width: 0%; transition: width 0.3s;"></div>
-    </div>
-    <div id="join-2" style="text-align: center; margin-top: 10px;">
-      <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
-    </div>
-  </div>
-
-  <!-- MATCH 3 -->
-  <div class="match-card" id="match-3">
-    <h3>BGMI Squad Match #3</h3>
-    <p><strong>Date:</strong> 2025-07-01</p>
-    <p><strong>Time:</strong> 08:00 PM</p>
-    <p><strong>Entry Fee:</strong> ₹30</p>
-    <p><strong>Per Kill:</strong> ₹15</p>
-    <p><strong>Map:</strong> Sanhok</p>
-    <p id="countdown-3" style="color: #00ff99; font-weight: bold;">Starts in: loading...</p>
-    <p id="players-3" style="color: #00ff99;">0/50 players joined</p>
-    <div style="background: #333; border-radius: 10px; overflow: hidden; height: 20px;">
-      <div id="bar-3" style="background: #00ff99; height: 100%; width: 0%; transition: width 0.3s;"></div>
-    </div>
-    <div id="join-3" style="text-align: center; margin-top: 10px;">
-      <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
-    </div>
-  </div>
-
+  <div id="upcoming-matches"></div>
 </section>
-  
+
 <section id="results" class="tournament-section">
   <div class="match-card">
     <h3>Result - Match #1</h3>
@@ -539,6 +492,78 @@ matches.forEach(match => {
     barEl.style.width = `${(players / maxPlayers) * 100}%`;
   }, 800 + match.id * 200); // Different speeds
 });
+  </script>
+  <script>
+const sheetURL = "https://script.google.com/macros/s/AKfycbxuvdHfM-4gq7uz0vWUSiJH_JGcXX-w38zYHObDOdmqovsef90puGvxsK0lRuehJ3tP/exec";
+
+fetch(sheetURL)
+  .then(res => res.json())
+  .then(matches => {
+    const container = document.getElementById("upcoming-matches");
+    matches.forEach((match, index) => {
+      const matchId = `match-${index}`;
+      const html = `
+        <div class="match-card" id="${matchId}">
+          <div class="match-info">
+            <h3>${match.match}</h3>
+            <p><strong>Map:</strong> ${match.map}</p>
+            <p><strong>Date:</strong> ${match.date}</p>
+            <p><strong>Time:</strong> ${match.time}</p>
+            <p><strong>Entry Fee:</strong> ${match.fee}</p>
+            <p><strong>Per Kill:</strong> ${match.perKill}</p>
+            <p id="countdown-${index}" style="color: #00ff99;">Starts in: loading...</p>
+            <p id="players-${index}" style="color: #00ff99;">0/50 players joined</p>
+            <div style="background: #333; border-radius: 10px; overflow: hidden; height: 20px;">
+              <div id="bar-${index}" style="background: #00ff99; height: 100%; width: 0%; transition: width 0.3s;"></div>
+            </div>
+            <div style="text-align:center; margin-top: 10px;">
+              <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
+            </div>
+          </div>
+        </div>`;
+      container.insertAdjacentHTML('beforeend', html);
+
+      // Countdown timer
+      const targetDate = new Date(`${match.date} ${match.time}`);
+      const countdownEl = document.getElementById(`countdown-${index}`);
+      const bar = document.getElementById(`bar-${index}`);
+      const playerText = document.getElementById(`players-${index}`);
+      let currentPlayers = 0;
+      const maxPlayers = 50;
+
+      const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+        if (diff <= 0) {
+          clearInterval(timer);
+          countdownEl.innerText = "Lobby filling...";
+          return;
+        }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        countdownEl.innerText = `Starts in: ${d}d ${h}h ${m}m ${s}s`;
+      }, 1000);
+
+      // Simulated progress bar
+      const joinSim = setInterval(() => {
+        if (currentPlayers >= maxPlayers) {
+          clearInterval(joinSim);
+          playerText.textContent = "Lobby Full ✅";
+          return;
+        }
+        currentPlayers++;
+        const percent = (currentPlayers / maxPlayers) * 100;
+        playerText.textContent = `${currentPlayers}/${maxPlayers} players joined`;
+        bar.style.width = percent + "%";
+      }, 1000);
+    });
+  })
+  .catch(err => {
+    document.getElementById("upcoming-matches").innerHTML = `<p style="color:red;">Failed to load matches 😢</p>`;
+    console.error("Sheet Error:", err);
+  });
   </script>
 </body>
 </html>
