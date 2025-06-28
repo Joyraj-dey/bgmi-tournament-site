@@ -236,13 +236,17 @@ color: white;
     <button onclick="showSection('ongoing')">Ongoing</button>
     <button onclick="showSection('results')">Results</button>
   </nav>
+  
+  <section id="ongoing" class="tournament-section" style="display:none;">
+  <div id="ongoing-matches">
+    <p style="text-align: center; color: #ffcc00; font-weight: bold; font-style: italic; padding: 2rem;">
+      ⚠️ No ongoing matches right now. Stay tuned for the next battle!
+    </p>
+  </div>
+  </section>
 
   <section id="upcoming" class="tournament-section">
     <div id="upcoming-matches"></div>
-  </section>
-
-  <section id="ongoing" class="tournament-section" style="display:none;">
-    <div id="ongoing-matches"></div>
   </section>
 
   <section id="results" class="tournament-section" style="display:none;">
