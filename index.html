@@ -218,7 +218,7 @@ color: white;
 </section>
 
 <section id="upcoming" class="tournament-section">
-  <div class="match-card" id="upcoming-match-1">
+<div class="match-card" id="upcoming-match-1">
   <h3>BGMI Solo Match #1</h3>
   <p><strong>Date:</strong> 2025-06-29</p>
   <p><strong>Time:</strong> 09:20 AM</p>
@@ -231,16 +231,14 @@ color: white;
   <div id="progress-wrapper" style="margin-top: 20px;">
     <p id="player-count" style="margin-bottom: 5px; color: #00ff99; text-align: center;">0/50 players joined</p>
     <div style="background: #333; border-radius: 10px; overflow: hidden; height: 20px;">
-      <div id="progress-bar" style="background: #00ff99; height: 100%; width: 0%;"></div>
+      <div id="progress-bar" style="background: #00ff99; height: 100%; width: 0%; transition: width 0.5s;"></div>
     </div>
   </div>
 
-  <div id="join-section">
-    <div style="text-align: center; margin-top: 15px;">
-      <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
-    </div>
+  <div id="join-section" style="text-align: center; margin-top: 15px;">
+    <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
   </div>
-  </div>
+</div>
 </section>
 
 <p>Send screenshot on WhatsApp: <strong><a href="https://wa.me/919395332708">9395332708</a></strong></p>
@@ -362,7 +360,7 @@ alert("Error: " + err.message);
 });
 }
   <script>
-  const matchDateTime = new Date("2025-06-29T09:20:00").getTime(); // ← Set match start time
+  const matchDateTime = new Date("2025-06-29T09:20:00").getTime();
   const timerEl = document.getElementById("countdown-timer");
   const joinSection = document.getElementById("join-section");
   const playerCountText = document.getElementById("player-count");
@@ -371,7 +369,7 @@ alert("Error: " + err.message);
   const lobbyLimit = 50;
   let currentPlayers = 0;
 
-  // Simulate player joining before and after match start
+  // Simulate players joining every second
   const joinSim = setInterval(() => {
     if (currentPlayers >= lobbyLimit) {
       clearInterval(joinSim);
@@ -392,7 +390,7 @@ alert("Error: " + err.message);
     if (diff <= 0) {
       clearInterval(countdown);
       timerEl.textContent = "Lobby is now filling...";
-      joinSection.style.display = "none"; // Hide join after match start
+      joinSection.style.display = "none"; // hide Join button after time
       return;
     }
 
