@@ -85,6 +85,7 @@ transform: scale(1.05);
 
 .match-card {
 display: flex;
+flex-direction: column;
 align-items: center;
 justify-content: space-between;
 background-color: #1e1e1e;
@@ -216,29 +217,31 @@ color: white;
     <p>Please check back later!</p>
   </div>
 </section>
-
+  
 <section id="upcoming" class="tournament-section">
-<div class="match-card" id="upcoming-match-1">
-  <h3>BGMI Solo Match #1</h3>
-  <p><strong>Date:</strong> 2025-06-29</p>
-  <p><strong>Time:</strong> 09:20 AM</p>
-  <p><strong>Entry Fee:</strong> ₹10</p>
-  <p><strong>Per Kill:</strong> ₹6</p>
-  <p><strong>Map:</strong> Erangle</p>
+  <div class="match-card" id="upcoming-match-1" style="display: block; flex-direction: column;">
+    <div class="match-info">
+      <h3>BGMI Solo Match #1</h3>
+      <p><strong>Date:</strong> 2025-06-29</p>
+      <p><strong>Time:</strong> 09:20 AM</p>
+      <p><strong>Entry Fee:</strong> ₹10</p>
+      <p><strong>Per Kill:</strong> ₹6</p>
+      <p><strong>Map:</strong> Erangle</p>
+    </div>
 
-  <p id="countdown-timer" style="color: #00ff99; font-weight: bold;">Starts in: loading...</p>
+    <p id="countdown-timer" style="color: #00ff99; font-weight: bold; margin-top: 10px;">Starts in: loading...</p>
 
-  <div id="progress-wrapper" style="margin-top: 20px;">
-    <p id="player-count" style="margin-bottom: 5px; color: #00ff99; text-align: center;">0/50 players joined</p>
-    <div style="background: #333; border-radius: 10px; overflow: hidden; height: 20px;">
-      <div id="progress-bar" style="background: #00ff99; height: 100%; width: 0%; transition: width 0.5s;"></div>
+    <div id="progress-wrapper" style="margin-top: 20px; width: 100%;">
+      <p id="player-count" style="margin-bottom: 5px; color: #00ff99; text-align: center;">0/50 players joined</p>
+      <div style="background: #333; border-radius: 10px; overflow: hidden; height: 20px;">
+        <div id="progress-bar" style="background: #00ff99; height: 100%; width: 0%; transition: width 0.5s;"></div>
+      </div>
+    </div>
+
+    <div id="join-section" style="text-align: center; margin-top: 15px;">
+      <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
     </div>
   </div>
-
-  <div id="join-section" style="text-align: center; margin-top: 15px;">
-    <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
-  </div>
-</div>
 </section>
 
 <p>Send screenshot on WhatsApp: <strong><a href="https://wa.me/919395332708">9395332708</a></strong></p>
@@ -403,5 +406,54 @@ alert("Error: " + err.message);
   }, 1000);
 </script>
 </script>
+  <script>
+  function showPopupForm() {
+    document.getElementById("popupForm").style.display = "block";
+  }
+
+  function hidePopupForm() {
+    document.getElementById("popupForm").style.display = "none";
+  }
+
+  const matchDateTime = new Date("2025-06-29T09:20:00").getTime();
+  const timerEl = document.getElementById("countdown-timer");
+  const joinSection = document.getElementById("join-section");
+  const playerCountText = document.getElementById("player-count");
+  const progressBar = document.getElementById("progress-bar");
+
+  const lobbyLimit = 50;
+  let currentPlayers = 0;
+
+  const joinSim = setInterval(() => {
+    if (currentPlayers >= lobbyLimit) {
+      clearInterval(joinSim);
+      playerCountText.textContent = "Lobby Full ✅";
+      return;
+    }
+    currentPlayers++;
+    const percent = (currentPlayers / lobbyLimit) * 100;
+    playerCountText.textContent = `${currentPlayers}/${lobbyLimit} players joined`;
+    progressBar.style.width = percent + "%";
+  }, 1000);
+
+  const countdown = setInterval(() => {
+    const now = new Date().getTime();
+    const diff = matchDateTime - now;
+
+    if (diff <= 0) {
+      clearInterval(countdown);
+      timerEl.textContent = "Lobby is now filling...";
+      joinSection.style.display = "none";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    timerEl.textContent = `Starts in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }, 1000);
+  </script>
 </body>
 </html>
