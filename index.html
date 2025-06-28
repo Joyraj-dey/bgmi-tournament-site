@@ -1,81 +1,127 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BGMI Tournament</title>
-  <link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BGMI Tournament Platform</title>
   <style>
-    .tournament-section {
-      display: none;
-      padding: 20px;
-    }
-    .match-card {
-      background-color: #1c1c1c;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    .match-card h3 {
-      margin-top: 0;
-    }
-    .match-card button {
-      background-color: #00c853;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0f0f0f;
       color: white;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1a1a1a;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      color: #00ff99;
+      text-decoration: none;
+    }
+    .hero {
+      background-image: url('https://i.ibb.co/fVH5dQPW/bgmi-banner.png');
+      background-size: cover;
+      background-position: center;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .categories, .registration, .contact {
+      padding: 2rem;
+      text-align: center;
+    }
+    .category {
+      background: #1f1f1f;
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    .btn {
+      background: #00ff99;
+      padding: 0.8rem 1.5rem;
       border: none;
-      padding: 10px 20px;
+      color: black;
       border-radius: 5px;
       cursor: pointer;
     }
-    #popupForm {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #1a1a1a;
-      padding: 2rem;
-      border-radius: 10px;
-      z-index: 999;
-      width: 90%;
-      max-width: 400px;
+    footer {
+      background-color: #111;
+      text-align: center;
+      padding: 1rem;
+      color: #888;
     }
-    #popupForm input, #popupForm select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
-    }
-    #popupForm button[type="submit"] {
-      background-color: #ff5722;
-      color: white;
-    }
-    #popupForm button[type="button"] {
-      background-color: #444;
-      color: white;
-    }
+    nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+nav button {
+  padding: 18px 36px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+nav button:hover {
+  background-color: #e64a19;
+  transform: scale(1.05);
+}
   </style>
-</head><body>
+</head>
+<body>
   <header>
-    <h1>BGMI Tournament</h1>
-  </header>  <main>
+    <h2>BGMI BattleZone</h2>
     <nav>
-      <button onclick="showSection('ongoing')">Ongoing</button>
-      <button onclick="showSection('upcoming')">Upcoming</button>
-      <button onclick="showSection('results')">Results</button>
-    </nav><section id="ongoing" class="tournament-section">
+      <a href="#home">Home</a>
+      <a href="#categories">Tournaments</a>
+      <a href="#registration">Register</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>Play. Win. Earn.</h1>
+    <p>Join competitive BGMI tournaments. 1v1 | 2v2 | Squad | TDM</p>
+    <a class="btn" href="#registration">Register Now</a>
+  </section>
+  
+  <section class="registration" id="registration">
+   <nav>
+  <button onclick="showSection('ongoing')">Ongoing</button>
+  <button onclick="showSection('upcoming')">Upcoming</button>
+  <button onclick="showSection('results')">Results</button>
+</nav>
+
+<section id="ongoing" class="tournament-section">
   <div class="match-card">
     <h3>Ongoing Match #1</h3>
     <p>Mode: Squad | Map: Erangle | TPP</p>
+    <button onclick="openForm()">Join</button>
   </div>
 </section>
 
 <section id="upcoming" class="tournament-section">
   <div class="match-card">
-    <h3>Upcoming Solo Match</h3>
+    <h3>Upcoming Match #2</h3>
     <p>Date: 2025-06-28 | Time: 09:20 AM</p>
     <p>Entry Fee: ₹10 | Per Kill: ₹6 | Map: Erangle</p>
-    <button onclick="showPopupForm()">Join</button>
+    <button onclick="openForm()">Join</button>
   </div>
 </section>
 
@@ -84,45 +130,39 @@
     <h3>Result - Match #1</h3>
     <p>Winner: PlayerXYZ | Kills: 12 | Prize: ₹500</p>
   </div>
-</section>
+</section> 
+  <section class="registration" id="registration">
+  <form id="bgmiForm" method="POST" action="https://script.google.com/macros/s/AKfycbzaB7evMEU29k98ryMcWK6LmqWpRawYLs-Pi8NyfJoz-lwggkqILVe_ww44MfIFIV8nmQ/exec">
+  <input name="Full Name" type="text" placeholder="Full Name" required><br><br>
+  <input name="Whatsapp no" type="text" placeholder="WhatsApp Number" required><br><br>
+  <input name="BGMI Username" type="text" placeholder="BGMI Username" required><br><br>
+  <input name="BGMI User ID" type="text" placeholder="BGMI User ID" required><br><br>
 
-<div id="popupForm">
-  <form method="POST" action="https://script.google.com/macros/s/AKfycbzaB7evMEU29k98ryMcWK6LmqWpRawYLs-Pi8NyfJoz-lwggkqILVe_ww44MfIFIV8nmQ/exec" onsubmit="submitForm(event)">
-    <h3>Register Now</h3>
-    <input type="text" name="Full Name" placeholder="Full Name" required>
-    <input type="text" name="Whatsapp no" placeholder="WhatsApp Number" required>
-    <input type="text" name="BGMI Username" placeholder="BGMI Username" required>
-    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required>
-    <select name="Match type" required>
-      <option value="" disabled selected>Select Match Type</option>
-      <option value="1v1">1v1</option>
-      <option value="2v2">2v2</option>
-      <option value="Squad">Squad</option>
-      <option value="TDM">TDM</option>
-    </select>
-    <button type="submit">Submit</button>
-    <button type="button" onclick="hidePopupForm()">Cancel</button>
+  <select name="Match type" required>
+    <option value="" disabled selected>Select Match Type</option>
+    <option value="1v1">1v1</option>
+    <option value="2v2">2v2</option>
+    <option value="Squad">Squad</option>
+    <option value="TDM">TDM</option>
+  </select><br><br>
+
+  <button type="submit">Submit</button>
   </form>
-</div>
+  
+    <p>Send screenshot on WhatsApp: <strong><a href="https://wa.me/919395332708">9395332708</a></strong></p>
+  </section>
 
-<section class="registration" id="registration">
-  <!-- This section is now hidden and no longer used -->
-</section>
+  <section class="contact" id="contact">
+    <h2>Need Help?</h2>
+    <p>Contact us on WhatsApp or DM on Instagram</p>
+    <a class="btn" href="https://wa.me/919395332708">Message Us</a>
+  </section>
 
-  </main>  <footer>
-    <p>Contact: 9395332708</p>
-    <p>&copy; 2025 BGMI Tournament</p>
-  </footer>  <script>
-    function showSection(id) {
-      document.querySelectorAll('.tournament-section').forEach(section => section.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-    }
-    function showPopupForm() {
-      document.getElementById('popupForm').style.display = 'block';
-    }
-    function hidePopupForm() {
-      document.getElementById('popupForm').style.display = 'none';
-    }
+  <footer>
+    <p>&copy; 2025 BGMI BattleZone. All rights reserved.</p>
+  </footer>
+
+  <script>
     function submitForm(e) {
       e.preventDefault();
       const form = e.target;
@@ -131,24 +171,40 @@
         const el = form.elements[i];
         if (el.name) data[el.name] = el.value;
       }
+
       fetch(form.action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
       })
       .then(res => {
         if (res.ok) {
           alert("Registration successful!");
           form.reset();
-          hidePopupForm();
         } else {
-          alert("Something went wrong. Try again!");
+          alert("Something went wrong. Try again.");
         }
       })
       .catch(err => {
         alert("Error: " + err.message);
       });
     }
-    window.onload = () => showSection('upcoming');
-  </script></body>
+  </script>
+    <script>
+  function showSection(id) {
+    document.querySelectorAll('.tournament-section').forEach(section => {
+      section.style.display = 'none';
+    });
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function openForm() {
+    // Scroll to registration form
+    document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Load Upcoming section by default
+  window.onload = () => showSection('upcoming');
+    </script>
+</body>
 </html>
