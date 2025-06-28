@@ -83,25 +83,36 @@ nav button:hover {
   transform: scale(1.05);
 }
     
-.modern-card {
+.match-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: #1e1e1e;
   padding: 20px;
   margin: 20px auto;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  max-width: 400px;
-  text-align: left;
+  max-width: 90%;
+  flex-wrap: wrap;
 }
 
-.modern-card h2 {
-  margin-bottom: 10px;
+.match-card .match-info {
+  flex-grow: 1;
+}
+
+.match-card h3 {
+  margin: 0 0 10px 0;
   color: #ff9800;
 }
 
-.modern-card p {
-  margin: 6px 0;
-  font-size: 15px;
-  line-height: 1.4;
+.match-card p {
+  margin: 4px 0;
+}
+
+.match-card .styled-join-btn {
+  margin-left: 20px;
+  padding: 12px 20px;
+  font-size: 1rem;
 }
 
 .styled-join-btn {
