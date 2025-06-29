@@ -631,8 +631,6 @@ fetch(sheetURL)
   </script>
 
   <script>
-    showSection('upcoming'); // Load Upcoming by default
-    
   fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPIIPGPLpq_1wPvIGcleT-IyFNR1RpvZbd6CHrJOASVOU9SU2Dr8/exec")
     .then(res => res.json())
     .then(matches => {
@@ -647,6 +645,7 @@ fetch(sheetURL)
       matches.forEach((match, index) => {
         const card = document.createElement("div");
         card.className = "match-card";
+        showSection('upcoming'); // ✅ load only after cards are added
 
         if (match.status.toLowerCase() === "ongoing") {
           card.innerHTML = `
