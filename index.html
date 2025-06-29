@@ -9,20 +9,40 @@
   .slider-container {
   position: relative;
   width: 100%;
-  height: 60vh; /* Just like the old hero banner */
+  height: 60vh;
   overflow: hidden;
-  margin: 0;
-  padding: 0;
-  border-radius: 10px;
+}
+
+.slider {
+  display: flex;
+  width: 500%;
+  height: 100%;
+  animation: slide 25s infinite ease-in-out;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
 }
 
 .slide-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  flex-shrink: 0;
 }
-  
+
+@keyframes slide {
+  0%   { transform: translateX(0%); }
+  20%  { transform: translateX(0%); }
+  25%  { transform: translateX(-100%); }
+  45%  { transform: translateX(-100%); }
+  50%  { transform: translateX(-200%); }
+  70%  { transform: translateX(-200%); }
+  75%  { transform: translateX(-300%); }
+  95%  { transform: translateX(-300%); }
+  100% { transform: translateX(0%); }
+}
+
 .loader-gif {
   position: absolute;
   top: 50%;
@@ -42,18 +62,6 @@
   font-size: 1rem;
   color: #00ffcc;
   z-index: 2;
-}
-
-@keyframes slide {
-  0%   { transform: translateX(0%); }
-  20%  { transform: translateX(0%); }
-  25%  { transform: translateX(-100%); }
-  45%  { transform: translateX(-100%); }
-  50%  { transform: translateX(-200%); }
-  70%  { transform: translateX(-200%); }
-  75%  { transform: translateX(-300%); }
-  95%  { transform: translateX(-300%); }
-  100% { transform: translateX(0%); }
 }
 
   .glow-quote {
@@ -301,16 +309,16 @@ color: white;
 <!-- PUBG Banner Slider -->
 <div class="slider-container">
   <div class="slider">
-    <img src="https://i.ibb.co/4nsYmy5M/nnmRTFN.jpg" class="slide-img">
-    <img src="https://i.ibb.co/Lqm7zx8/photo-2018-06-20-18-08-18-e1529498512997.jpg" class="slide-img">
-    <img src="https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg" class="slide-img">
-    <img src="https://i.ibb.co/HDnn3Gwy/0d67efcc52fc7009ef4bb84f50770fdf.jpg" class="slide-img">
-    <img src="https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg" class="slide-img">
+    <div class="slide"><img src="https://i.ibb.co/4nsYmy5M/nnmRTFN.jpg" class="slide-img" /></div>
+    <div class="slide"><img src="https://i.ibb.co/Lqm7zx8/photo-2018-06-20-18-08-18-e1529498512997.jpg" class="slide-img" /></div>
+    <div class="slide"><img src="https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg" class="slide-img" /></div>
+    <div class="slide"><img src="https://i.ibb.co/HDnn3Gwy/0d67efcc52fc7009ef4bb84f50770fdf.jpg" class="slide-img" /></div>
+    <div class="slide"><img src="https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg" class="slide-img" /></div>
   </div>
 
   <!-- Loading GIF Center -->
   <div class="loader-gif">
-    <img src="https://i.ibb.co/d4B8qPr/VK6wg-PIRDR-1.gif" alt="Loading" style="width: 100px; height: 100px;">
+    <img src="https://i.ibb.co/xFTnCfx/pubg-loading.gif" alt="Loading" />
   </div>
 
   <!-- Real-Time Clock -->
