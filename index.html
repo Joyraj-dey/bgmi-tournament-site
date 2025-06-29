@@ -270,7 +270,9 @@ color: white;
   </section>
 
   <section id="upcoming" class="tournament-section">
-    <div id="upcoming-matches"></div>
+    <div id="upcoming-matches">
+  <p id="upcoming-loading" style="text-align:center; color:#00ff99;">Loading matches...</p>
+    </div>
   </section>
 
   <section id="results" class="tournament-section" style="display:none;">
@@ -641,6 +643,7 @@ fetch(sheetURL)
       ongoing.innerHTML = "";
       upcoming.innerHTML = "";
       results.innerHTML = "";
+      document.getElementById("upcoming-loading").remove(); // remove loading msg
 
       matches.forEach((match, index) => {
         const card = document.createElement("div");
