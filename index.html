@@ -5,6 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BGMI Tournament Platform</title>
 <style>
+  .slider-container {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slider {
+  display: flex;
+  width: 600%;
+  height: 100%;
+  animation: slide 30s infinite ease-in-out;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.loader-gif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.real-time-clock {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 1rem;
+  color: #00ffcc;
+  z-index: 2;
+}
+
+@keyframes slide {
+  0%   { transform: translateX(0%); }
+  20%  { transform: translateX(0%); }
+  25%  { transform: translateX(-100%); }
+  45%  { transform: translateX(-100%); }
+  50%  { transform: translateX(-200%); }
+  70%  { transform: translateX(-200%); }
+  75%  { transform: translateX(-300%); }
+  95%  { transform: translateX(-300%); }
+  100% { transform: translateX(0%); }
+}
 
   .glow-quote {
   text-align: center;
@@ -685,7 +738,26 @@ fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGc
   </script>
 </script>
   
-</body>
+<body>
+  <!-- PUBG Banner Slider -->
+<div class="slider-container">
+  <div class="slider">
+    <img src="https://i.ibb.co/4nsYmy5M/nnmRTFN.jpg" class="slide-img">
+    <img src="https://i.ibb.co/Lqm7zx8/photo-2018-06-20-18-08-18-e1529498512997.jpg" class="slide-img">
+    <img src="https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg" class="slide-img">
+    <img src="https://i.ibb.co/HDnn3Gwy/0d67efcc52fc7009ef4bb84f50770fdf.jpg" class="slide-img">
+    <img src="https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg" class="slide-img">
+  </div>
+
+  <!-- Loading GIF Center -->
+  <div class="loader-gif">
+    <img src="https://i.ibb.co/d4B8qPr/VK6wg-PIRDR-1.gif" alt="Loading" />
+  </div>
+
+  <!-- Real-Time Clock -->
+  <div class="real-time-clock" id="clock">00:00:00</div>
+</div>
+  
   <div id="defeatYT" style="display: none;">
   <iframe 
     width="0" height="0"
@@ -695,5 +767,20 @@ fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGc
     allow="autoplay"
   ></iframe>
   </div>
+  <script>
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours();
+  let m = now.getMinutes();
+  let s = now.getSeconds();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  m = m < 10 ? '0'+m : m;
+  s = s < 10 ? '0'+s : s;
+  document.getElementById('clock').innerText = `${h}:${m}:${s} ${ampm}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+  </script>
 </body>
 </html>
