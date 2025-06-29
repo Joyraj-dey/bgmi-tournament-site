@@ -667,23 +667,21 @@ fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGc
     container.innerHTML = ""; // 🧹 REMOVE loading message
 
     data.forEach(match => {
-      const div = document.createElement("div");
-      div.className = "match-card";
-      div.innerHTML = `
-        <h3>${match.match}</h3>
-        <p><strong>Date:</strong> ${match.date}</p>
-        <p><strong>Time:</strong> ${match.time}</p>
-        <p><strong>Entry Fee:</strong> ${match.fee}</p>
-        <p><strong>Per Kill:</strong> ${match.perKill}</p>
-        <button class="styled-join-btn" onclick="showPopupForm()">Join Now</button>
-      `;
-      container.appendChild(div);
-    });
-  })
-  .catch(err => {
-    document.getElementById("upcoming-matches").innerHTML = "<p style='color:red;'>Failed to load matches.</p>";
-    console.error(err);
-  });
+  // ✅ Skip if essential data is missing
+  if (!match.match || !match.date || !match.time || !match.fee || !match.perKill) return;
+
+  const div = document.createElement("div");
+  div.className = "match-card";
+  div.innerHTML = `
+    <h3>${match.match}</h3>
+    <p><strong>Date:</strong> ${match.date}</p>
+    <p><strong>Time:</strong> ${match.time}</p>
+    <p><strong>Entry Fee:</strong> ${match.fee}</p>
+    <p><strong>Per Kill:</strong> ${match.perKill}</p>
+    <button class="styled-join-btn" onclick="showPopupForm()">Join Now</button>
+  `;
+  container.appendChild(div);
+});
   </script>
 </script>
   
