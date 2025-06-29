@@ -312,7 +312,7 @@ document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
 }
 
 // Load Upcoming section by default
-window.onload = () => showSection('upcoming');
+showSection('upcoming');
 </script>
 <!-- POPUP FORM -->
 <div id="popupForm" class="popup-form">
@@ -590,17 +590,20 @@ fetch(sheetURL)
   });
   </script>
   <script>
-  let currentSection = 'upcoming'; // default section
+  let currentSection = null;
 
 function showSection(id) {
-  if (id === currentSection) return; // Already open, do nothing
+  if (id === currentSection) return;
 
   document.querySelectorAll('.tournament-section').forEach(section => {
     section.style.display = 'none';
   });
 
-  document.getElementById(id).style.display = 'block';
-  currentSection = id;
+  const selected = document.getElementById(id);
+  if (selected) {
+    selected.style.display = 'block';
+    currentSection = id;
+  }
 }
 
   // Load Upcoming by default
@@ -609,12 +612,12 @@ function showSection(id) {
   fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGcleT-IyFNR1RpvZbd6CHrJOASVOU9SU2Dr8/exec")
     .then(res => res.json())
     .then(matches => {
-      const upcoming = document.getElementById("upcoming-matches");
       const ongoing = document.getElementById("ongoing-matches");
+      const upcoming = document.getElementById("upcoming-matches");
       const results = document.getElementById("results-matches");
-
-      upcoming.innerHTML = "";
+      
       ongoing.innerHTML = "";
+      upcoming.innerHTML = "";
       results.innerHTML = "";
 
       matches.forEach((match, index) => {
@@ -628,12 +631,12 @@ function showSection(id) {
           <p><strong>Entry Fee:</strong> ${match.entryfee} | <strong>Per Kill:</strong> ${match.perkill}</p>
           <p><strong>Match Type:</strong> ${match.matchtype}</p>
         `;
-
-        if (match.status.toLowerCase() === "upcoming") {
+        
+        if (match.status.toLowerCase() === "ongoing") {
+          ongoing.appendChild(card);
+        } else if (match.status.toLowerCase() === "upcoming") {
           card.innerHTML += `<button class="btn-orange" onclick="showPopupForm()">Join Now</button>`;
           upcoming.appendChild(card);
-        } else if (match.status.toLowerCase() === "ongoing") {
-          ongoing.appendChild(card);
         } else if (match.status.toLowerCase() === "completed") {
           card.innerHTML += `
             <p><strong>🏆 Winner:</strong> ${match.winner || "TBD"}</p>
