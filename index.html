@@ -42,24 +42,23 @@
 
 /* GIF */
  .loader-gif {
+ .loader-gif {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   overflow: hidden;
   z-index: 10;
-  background: transparent;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 .loader-gif img {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  top: -25px; /* Move image upward */
-  left: -35px; /* Move image left */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Animation */
@@ -329,9 +328,8 @@ color: white;
 
     <!-- PUBG GIF -->
     <div class="loader-gif">
-  <img src="https://i.ibb.co/d4B8qPrc/VK6wg-PIRDR-1.gif" alt="Loading..." />
+  <img src="https://i.ibb.co/3y489MqD/ezgif-879674d578e8c6.gif" alt="Loading" />
     </div>
-
     <!-- Clock -->
     <div class="real-time-clock" id="clock">00:00:00</div>
   </div>
