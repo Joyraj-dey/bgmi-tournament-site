@@ -6,10 +6,10 @@
 <title>BGMI Tournament Platform</title>
 <style>
   
-  .slider-container {
+.slider-container {
   position: relative;
   width: 100%;
-  height: 60vh;
+  height: 55vh; /* Just like old hero banner height */
   overflow: hidden;
 }
 
@@ -31,18 +31,6 @@
   object-fit: cover;
 }
 
-@keyframes slide {
-  0%   { transform: translateX(0%); }
-  20%  { transform: translateX(0%); }
-  25%  { transform: translateX(-100%); }
-  45%  { transform: translateX(-100%); }
-  50%  { transform: translateX(-200%); }
-  70%  { transform: translateX(-200%); }
-  75%  { transform: translateX(-300%); }
-  95%  { transform: translateX(-300%); }
-  100% { transform: translateX(0%); }
-}
-
 .loader-gif {
   position: absolute;
   top: 50%;
@@ -62,6 +50,18 @@
   font-size: 1rem;
   color: #00ffcc;
   z-index: 2;
+}
+
+@keyframes slide {
+  0%   { transform: translateX(0%); }
+  20%  { transform: translateX(0%); }
+  25%  { transform: translateX(-100%); }
+  45%  { transform: translateX(-100%); }
+  50%  { transform: translateX(-200%); }
+  70%  { transform: translateX(-200%); }
+  75%  { transform: translateX(-300%); }
+  95%  { transform: translateX(-300%); }
+  100% { transform: translateX(0%); }
 }
 
   .glow-quote {
