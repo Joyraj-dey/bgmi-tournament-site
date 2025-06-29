@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BGMI Tournament Platform</title>
 <style>
+  
   .slider-container {
   position: relative;
   width: 100%;
@@ -301,11 +302,24 @@ color: white;
 </nav>
 </header>
 
-<section class="hero" id="home">
-<h1>Play. Win. Earn.</h1>
-<p>Join competitive BGMI tournaments. 1v1 | 2v2 | Squad | TDM</p>
-<a class="btn" href="#registration">Register Now</a>
-</section>
+<!-- PUBG Banner Slider -->
+<div class="slider-container">
+  <div class="slider">
+    <img src="https://i.ibb.co/4nsYmy5M/nnmRTFN.jpg" class="slide-img">
+    <img src="https://i.ibb.co/Lqm7zx8/photo-2018-06-20-18-08-18-e1529498512997.jpg" class="slide-img">
+    <img src="https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg" class="slide-img">
+    <img src="https://i.ibb.co/HDnn3Gwy/0d67efcc52fc7009ef4bb84f50770fdf.jpg" class="slide-img">
+    <img src="https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg" class="slide-img">
+  </div>
+
+  <!-- Loading GIF Center -->
+  <div class="loader-gif">
+    <img src="https://i.ibb.co/d4B8qPr/VK6wg-PIRDR-1.gif" alt="Loading" style="width: 100px; height: 100px;">
+  </div>
+
+  <!-- Real-Time Clock -->
+  <div class="real-time-clock" id="clock">00:00:00</div>
+</div>
 
 <section class="registration" id="registration">
   <nav class="section-buttons">
@@ -767,7 +781,7 @@ fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGc
     allow="autoplay"
   ></iframe>
   </div>
-  <script>
+<script>
 function updateClock() {
   const now = new Date();
   let h = now.getHours();
@@ -781,6 +795,6 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 updateClock();
-  </script>
+</script>
 </body>
 </html>
