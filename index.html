@@ -65,8 +65,7 @@
   color: #00ffcc;
   z-index: 2;
 }
-
-/* Animation */
+  
 @keyframes slide {
   0%   { transform: translateX(0%); }
   20%  { transform: translateX(0%); }
@@ -368,11 +367,16 @@ color: white;
     🏁 Victory belongs to the brave. More matches coming soon!
   </p>
   <div id="results-matches"></div>
+      <div id="defeatYT" style="display: none;">
+  <iframe width="0" height="0" frameborder="0" allow="autoplay"></iframe>
+      </div>
   </section>
 </section>
+  
   <section 
 <p>Send screenshot on WhatsApp: <strong><a href="https://wa.me/919395332708">9395332708</a></strong></p>
 </section>
+  
 
 <section class="contact" id="contact">
 <h2>Need Help?</h2>
@@ -788,6 +792,25 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 updateClock();
+  <script>
+function playResultMusic() {
+  const iframe = document.getElementById("defeatYT");
+  iframe.style.display = "block";
+  const src = "https://www.youtube.com/embed/do_ZOBzYI54?autoplay=1&loop=1&playlist=do_ZOBzYI54";
+  iframe.querySelector("iframe").src = src;
+}
+
+function showSection(id) {
+  document.querySelectorAll('.tournament-section').forEach(section => {
+    section.style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+
+  if (id === "results") {
+    playResultMusic();
+  }
+}
+</script>
 </script>
 </body>
 </html>
