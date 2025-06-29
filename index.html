@@ -368,7 +368,16 @@ color: white;
   </p>
   <div id="results-matches"></div>
       <div id="defeatYT" style="display: none;">
-  <iframe width="0" height="0" frameborder="0" allow="autoplay"></iframe>
+  <div id="defeatYT" style="display: none;">
+  <iframe 
+    width="0" height="0"
+    src=""
+    title="PUBG Defeat Theme"
+    frameborder="0"
+    allow="autoplay"
+    loading="eager"
+  ></iframe>
+  </div>
       </div>
   </section>
 </section>
@@ -806,10 +815,13 @@ function showSection(id) {
   });
   document.getElementById(id).style.display = 'block';
 
-  if (id === "results") {
-    playResultMusic();
-  }
+if (id === 'results') {
+  const iframe = document.querySelector("#defeatYT iframe");
+  const src = "https://www.youtube.com/embed/do_ZOBzYI54?autoplay=1&loop=1&playlist=do_ZOBzYI54";
+  iframe.src = src;
+  document.getElementById("defeatYT").style.display = "block";
 }
+  
 </script>
 </script>
 </body>
