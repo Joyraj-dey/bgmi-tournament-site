@@ -6,12 +6,18 @@
 <title>BGMI Tournament Platform</title>
 <style>
   
-  .slider-container {
-  position: relative;
-  width: 100%;
-  height: 60vh;
-  overflow: hidden;
-  border-radius: 10px;
+  html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  }
+  
+  .slide-img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .slider {
@@ -753,34 +759,8 @@ fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGc
 </script>
   
 <body>
-  <!-- PUBG Banner Slider -->
-<div class="slider-container">
-  <div class="slider">
-    <img src="https://i.ibb.co/4nsYmy5M/nnmRTFN.jpg" class="slide-img">
-    <img src="https://i.ibb.co/Lqm7zx8/photo-2018-06-20-18-08-18-e1529498512997.jpg" class="slide-img">
-    <img src="https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg" class="slide-img">
-    <img src="https://i.ibb.co/HDnn3Gwy/0d67efcc52fc7009ef4bb84f50770fdf.jpg" class="slide-img">
-    <img src="https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg" class="slide-img">
-  </div>
+  <!-- PU<divBG Banner Slider -->
 
-  <!-- Loading GIF Center -->
-  <div class="loader-gif">
-    <img src="https://i.ibb.co/d4B8qPr/VK6wg-PIRDR-1.gif" alt="Loading" />
-  </div>
-
-  <!-- Real-Time Clock -->
-  <div class="real-time-clock" id="clock">00:00:00</div>
-</div>
-  
-  <div id="defeatYT" style="display: none;">
-  <iframe 
-    width="0" height="0"
-    src="https://www.youtube.com/embed/do_ZOBzYI54?autoplay=1&loop=1&playlist=do_ZOBzYI54"
-    title="PUBG Defeat Theme"
-    frameborder="0"
-    allow="autoplay"
-  ></iframe>
-  </div>
 <script>
 function updateClock() {
   const now = new Date();
