@@ -630,16 +630,16 @@ fetch(sheetURL)
   }
   </script>
 
-  // Load Upcoming by default
-  showSection('upcoming');
-
-  fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGcleT-IyFNR1RpvZbd6CHrJOASVOU9SU2Dr8/exec")
+  <script>
+    showSection('upcoming'); // Load Upcoming by default
+    
+  fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPIIPGPLpq_1wPvIGcleT-IyFNR1RpvZbd6CHrJOASVOU9SU2Dr8/exec")
     .then(res => res.json())
     .then(matches => {
       const ongoing = document.getElementById("ongoing-matches");
       const upcoming = document.getElementById("upcoming-matches");
       const results = document.getElementById("results-matches");
-      
+
       ongoing.innerHTML = "";
       upcoming.innerHTML = "";
       results.innerHTML = "";
@@ -647,29 +647,38 @@ fetch(sheetURL)
       matches.forEach((match, index) => {
         const card = document.createElement("div");
         card.className = "match-card";
-        card.innerHTML = `
-          <h3>${match.match}</h3>
-          <p><strong>Map:</strong> ${match.map}</p>
-          <p><strong>Date:</strong> ${match.date}</p>
-          <p><strong>Time:</strong> ${match.time}</p>
-          <p><strong>Entry Fee:</strong> ${match.entryfee} | <strong>Per Kill:</strong> ${match.perkill}</p>
-          <p><strong>Match Type:</strong> ${match.matchtype}</p>
-        `;
-        
+
         if (match.status.toLowerCase() === "ongoing") {
+          card.innerHTML = `
+            <h3>${match.match}</h3>
+            <p>🗺️ Map: ${match.map}</p>
+            <p>📅 Date: ${match.date}</p>
+            <p>⏰ Time: ${match.time}</p>
+            <p>💸 Entry Fee: ${match.entryfee} | Per Kill: ${match.perkill}</p>
+            <p><em>Match is live right now!</em></p>
+          `;
           ongoing.appendChild(card);
         } else if (match.status.toLowerCase() === "upcoming") {
-          card.innerHTML += `<button class="btn-orange" onclick="showPopupForm()">Join Now</button>`;
+          card.innerHTML = `
+            <h3>${match.match}</h3>
+            <p>🗺️ Map: ${match.map}</p>
+            <p>📅 Date: ${match.date}</p>
+            <p>⏰ Time: ${match.time}</p>
+            <p>💸 Entry Fee: ${match.entryfee} | Per Kill: ${match.perkill}</p>
+            <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
+          `;
           upcoming.appendChild(card);
         } else if (match.status.toLowerCase() === "completed") {
-          card.innerHTML += `
-            <p><strong>🏆 Winner:</strong> ${match.winner || "TBD"}</p>
-            <p><strong>💥 Kills:</strong> ${match.kills || "—"} | <strong>🎁 Prize:</strong> ${match.prize || "—"}</p>
+          card.innerHTML = `
+            <h3>${match.match}</h3>
+            <p>🏆 Winner: ${match.winner || "TBD"}</p>
+            <p>💥 Kills: ${match.kills || "--"} | 🎁 Prize: ${match.prize || "--"}</p>
           `;
           results.appendChild(card);
         }
       });
     });
+  </script>
   </script>
 </body>
 </html>
