@@ -270,10 +270,11 @@ color: white;
   </section>
 
   <section id="upcoming" class="tournament-section">
-    <div id="upcoming-loading" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;">
-  <img src="https://i.gifer.com/7VE.gif" alt="Loading..." width="50" height="50">
-  <p style="color: #00ff99; font-weight: bold;">Loading matches...</p>
-    </div>
+  <div id="upcoming-matches">
+    <p style="text-align:center;">
+      <img src="your-loading.gif" width="50"><br>Loading matches...
+    </p>
+  </div>
   </section>
 
   <section id="results" class="tournament-section" style="display:none;">
@@ -659,57 +660,34 @@ function showSection(id) {
   </script>
 
   <script>
-  fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPIIPGPLpq_1wPvIGcleT-IyFNR1RpvZbd6CHrJOASVOU9SU2Dr8/exec")
-    .then(res => res.json())
-    .then(matches => {
-      const ongoing = document.getElementById("ongoing-matches");
-      const upcoming = document.getElementById("upcoming-matches");
-      const results = document.getElementById("results-matches");
+fetch("https://script.google.com/macros/s/AKfycby2tQcs9iFVuwImXPllPGPLpq_1wPvIGcleT-IyFNR1RpvZbd6CHrJOASVOU9SU2Dr8/exec")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("upcoming-matches");
+    container.innerHTML = ""; // 🧹 REMOVE loading message
 
-      ongoing.innerHTML = "";
-      upcoming.innerHTML = "";
-      results.innerHTML = "";
-
-      const loadingEl = document.getElementById("upcoming-loading");
-if (loadingEl) loadingEl.remove();
-      
-      matches.forEach((match, index) => {
-        const card = document.createElement("div");
-        card.className = "match-card";
-        showSection('upcoming'); // ✅ load only after cards are added
-
-        if (match.status.toLowerCase() === "ongoing") {
-          card.innerHTML = `
-            <h3>${match.match}</h3>
-            <p>🗺️ Map: ${match.map}</p>
-            <p>📅 Date: ${match.date}</p>
-            <p>⏰ Time: ${match.time}</p>
-            <p>💸 Entry Fee: ${match.entryfee} | Per Kill: ${match.perkill}</p>
-            <p><em>Match is live right now!</em></p>
-          `;
-          ongoing.appendChild(card);
-        } else if (match.status.toLowerCase() === "upcoming") {
-          card.innerHTML = `
-            <h3>${match.match}</h3>
-            <p>🗺️ Map: ${match.map}</p>
-            <p>📅 Date: ${match.date}</p>
-            <p>⏰ Time: ${match.time}</p>
-            <p>💸 Entry Fee: ${match.entryfee} | Per Kill: ${match.perkill}</p>
-            <button class="btn-orange" onclick="showPopupForm()">Join Now</button>
-          `;
-          upcoming.appendChild(card);
-        } else if (match.status.toLowerCase() === "completed") {
-          card.innerHTML = `
-            <h3>${match.match}</h3>
-            <p>🏆 Winner: ${match.winner || "TBD"}</p>
-            <p>💥 Kills: ${match.kills || "--"} | 🎁 Prize: ${match.prize || "--"}</p>
-          `;
-          results.appendChild(card);
-        }
-      });
+    data.forEach(match => {
+      const div = document.createElement("div");
+      div.className = "match-card";
+      div.innerHTML = `
+        <h3>${match.match}</h3>
+        <p><strong>Date:</strong> ${match.date}</p>
+        <p><strong>Time:</strong> ${match.time}</p>
+        <p><strong>Entry Fee:</strong> ${match.fee}</p>
+        <p><strong>Per Kill:</strong> ${match.perKill}</p>
+        <button class="styled-join-btn" onclick="showPopupForm()">Join Now</button>
+      `;
+      container.appendChild(div);
     });
+  })
+  .catch(err => {
+    document.getElementById("upcoming-matches").innerHTML = "<p style='color:red;'>Failed to load matches.</p>";
+    console.error(err);
+  });
   </script>
-  </script>
+</script>
+  
+</body>
   <div id="defeatYT" style="display: none;">
   <iframe 
     width="0" height="0"
