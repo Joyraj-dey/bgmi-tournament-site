@@ -270,8 +270,9 @@ color: white;
   </section>
 
   <section id="upcoming" class="tournament-section">
-    <div id="upcoming-matches">
-  <p id="upcoming-loading" style="text-align:center; color:#00ff99;">Loading matches...</p>
+    <div id="upcoming-loading" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;">
+  <img src="https://i.gifer.com/7VE.gif" alt="Loading..." width="50" height="50">
+  <p style="color: #00ff99; font-weight: bold;">Loading matches...</p>
     </div>
   </section>
 
@@ -643,8 +644,10 @@ fetch(sheetURL)
       ongoing.innerHTML = "";
       upcoming.innerHTML = "";
       results.innerHTML = "";
-      document.getElementById("upcoming-loading").remove(); // remove loading msg
 
+      const loadingEl = document.getElementById("upcoming-loading");
+if (loadingEl) loadingEl.remove();
+      
       matches.forEach((match, index) => {
         const card = document.createElement("div");
         card.className = "match-card";
