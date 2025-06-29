@@ -624,18 +624,22 @@ fetch(sheetURL)
   </script>
   <script>
   let currentSection = null;
-
-  function showSection(id) {
-  function showSection(id) {
+function showSection(id) {
+  // Hide all tournament sections
   document.querySelectorAll('.tournament-section').forEach(section => {
     section.style.display = 'none';
   });
-  document.getElementById(id).style.display = 'block';
 
+  // Show the selected section
+  const targetSection = document.getElementById(id);
+  if (targetSection) {
+    targetSection.style.display = 'block';
+  }
+
+  // Handle defeat theme playback
   const ytContainer = document.getElementById("defeatYT");
 
   if (id === "results") {
-    // Recreate the YouTube iframe each time to force reload
     ytContainer.innerHTML = `
       <iframe 
         width="0" 
@@ -643,18 +647,15 @@ fetch(sheetURL)
         src="https://www.youtube.com/embed/do_ZOBzYI54?autoplay=1&loop=1&playlist=do_ZOBzYI54"
         title="PUBG Defeat Theme"
         frameborder="0"
-        allow="autoplay"
-      ></iframe>`;
+        allow="autoplay">
+      </iframe>`;
     ytContainer.style.display = "block";
   } else {
-    // Remove the iframe to stop the music
     ytContainer.innerHTML = "";
     ytContainer.style.display = "none";
   }
-  }
-
-    currentSection = id;
-  }
+}
+</script>
   </script>
 
   <script>
