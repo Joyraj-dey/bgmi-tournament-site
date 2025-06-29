@@ -105,7 +105,31 @@ nav button:hover {
 background-color: #e64a19;
 transform: scale(1.05);
 }
+.section-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 30px 0;
+}
 
+.section-buttons button {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.section-buttons button:hover {
+  background-color: #e64a19;
+  transform: scale(1.05);
+}
 .match-card {
   display: block;
   background-color: #1e1e1e;
@@ -231,10 +255,10 @@ color: white;
 </section>
 
 <section class="registration" id="registration">
-  <nav>
-    <button onclick="showSection('ongoing')">Ongoing</button>
-    <button onclick="showSection('upcoming')">Upcoming</button>
-    <button onclick="showSection('results')">Results</button>
+  <nav class="section-buttons">
+  <button onclick="showSection('ongoing')">Ongoing</button>
+  <button onclick="showSection('upcoming')">Upcoming</button>
+  <button onclick="showSection('results')">Results</button>
   </nav>
   
   <section id="ongoing" class="tournament-section" style="display:none;">
@@ -592,19 +616,19 @@ fetch(sheetURL)
   <script>
   let currentSection = null;
 
-function showSection(id) {
-  if (id === currentSection) return;
+  function showSection(id) {
+    if (id === currentSection) return;
 
-  document.querySelectorAll('.tournament-section').forEach(section => {
-    section.style.display = 'none';
-  });
+    const sectionIds = ['upcoming', 'ongoing', 'results'];
 
-  const selected = document.getElementById(id);
-  if (selected) {
-    selected.style.display = 'block';
+    sectionIds.forEach(sec => {
+      const el = document.getElementById(sec);
+      if (el) el.style.display = (sec === id) ? 'block' : 'none';
+    });
+
     currentSection = id;
   }
-}
+  </script>
 
   // Load Upcoming by default
   showSection('upcoming');
