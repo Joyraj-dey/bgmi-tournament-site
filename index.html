@@ -456,14 +456,12 @@ showSection('upcoming');
 </script>
 <!-- POPUP FORM -->
 <div id="popupForm" class="popup-form" style="display:none;">
-  <form method="POST" action="https://script.google.com/macros/s/AKfycbx_Vh_S_TOSrivQ4rzQQgVPcZnjxlT32718Lw9vINo5gthm1yqBRPoMIpjwI2WBVP777A/exec" onsubmit="submitForm(event)">
-    <h2 style="color:white;">Register Now</h2>
-    <input type="text" name="Full Name" placeholder="Full Name" required />
-    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-    <button type="submit">Submit</button>
-    <button type="button" onclick="hidePopupForm()">Cancel</button>
+  <form method="POST" action="https://script.google.com/macros/s/AKfycbxv8tFSaoB0eBfpd5NNUyO4sMOBnchicE9zufvxq89sTXIeefsIKTOxCNqu5hlESpU/exec" onsubmit="submitForm(event)">
+  <input type="text" name="Full Name" placeholder="Full Name" required />
+  <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
+  <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+  <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+  <button type="submit">Submit</button>
   </form>
 </div>
 
@@ -787,6 +785,7 @@ function submitForm(e) {
   e.preventDefault();
   const form = e.target;
   const data = {};
+
   for (let i = 0; i < form.elements.length; i++) {
     const el = form.elements[i];
     if (el.name) data[el.name] = el.value;
@@ -801,23 +800,16 @@ function submitForm(e) {
     if (res.ok) {
       alert("Registration successful!");
       form.reset();
-      hidePopupForm();
     } else {
-      alert("Failed to submit. Try again.");
+      alert("Something went wrong.");
     }
   })
   .catch(err => {
     alert("Error: " + err.message);
   });
 }
-
-function showPopupForm() {
-  document.getElementById("popupForm").style.display = "block";
-}
-function hidePopupForm() {
-  document.getElementById("popupForm").style.display = "none";
-}
     </script>
+
   
 </body>
 </html>
