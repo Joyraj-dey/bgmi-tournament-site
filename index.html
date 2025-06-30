@@ -407,7 +407,6 @@ color: white;
   </div>
       </div>
   </section>
-</section>
   
   <section 
 <p>Send screenshot on WhatsApp: <strong><a href="https://wa.me/919395332708">9395332708</a></strong></p>
@@ -778,19 +777,25 @@ function playResultMusic() {
   iframe.querySelector("iframe").src = src;
 }
 
+<script>
 function showSection(id) {
   document.querySelectorAll('.tournament-section').forEach(section => {
     section.style.display = 'none';
   });
   document.getElementById(id).style.display = 'block';
 
-if (id === 'results') {
-  const iframe = document.querySelector("#defeatYT iframe");
-  const src = "https://www.youtube.com/embed/do_ZOBzYI54?autoplay=1&loop=1&playlist=do_ZOBzYI54";
-  iframe.src = src;
-  document.getElementById("defeatYT").style.display = "block";
+  // Play music only if "results" is opened
+  if (id === 'results') {
+    const iframe = document.querySelector("#defeatYT iframe");
+    iframe.src = "https://www.youtube.com/embed/do_ZOBzYI54?autoplay=1&loop=1&playlist=do_ZOBzYI54";
+    document.getElementById("defeatYT").style.display = "block";
+  } else {
+    // Stop music if navigating away
+    const iframe = document.querySelector("#defeatYT iframe");
+    iframe.src = "";
+    document.getElementById("defeatYT").style.display = "none";
+  }
 }
-  
 </script>
 
   <script>
