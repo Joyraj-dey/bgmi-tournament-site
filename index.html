@@ -473,15 +473,17 @@ document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
 showSection('upcoming');
 </script>
 <!-- POPUP FORM -->
-<form method="POST" action="https://script.google.com/macros/s/AKfycbxPvpQRFr6rwfZgH361YnogkvE73rHvvtZvGSkGRBeyEDluVarhHgljX6JYn-SuSsQUQw/exec" onsubmit="submitForm(event)">
-  <h2>Register Now</h2>
-  <input type="text" name="Full Name" placeholder="Full Name" required />
-  <input type="text" name="Whatsapp no" placeholder="WhatsApp Number" required />
-  <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-  <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-  <button type="submit">Submit</button>
-  <button type="button" onclick="hidePopupForm()">Cancel</button>
-</form>
+<div id="popupForm" class="popup-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#1f1f1f; padding:20px; border-radius:10px; z-index:999; box-shadow:0 0 15px rgba(0,0,0,0.5);">
+  <form method="POST" action="https://script.google.com/macros/s/AKfycbxPvpQRFr6rwfZgH361YnogkvE73rHvvtZvGSkGRBeyEDluVarhHgljX6JYn-SuSsQUQw/exec" onsubmit="submitForm(event)">
+    <h2 style="color:white;">Register Now</h2>
+    <input type="text" name="Full Name" placeholder="Full Name" required />
+    <input type="text" name="Whatsapp no" placeholder="WhatsApp Number" required />
+    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+    <button type="submit">Submit</button>
+    <button type="button" onclick="hidePopupForm()">Cancel</button>
+  </form>
+</div>
 
 <script>
 // Show the popup form
