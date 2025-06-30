@@ -395,14 +395,6 @@ color: white;
   </p>
   <div id="results-matches"></div>
   <div id="defeatYT" style="display: none;">
-  <iframe 
-    width="0" height="0"
-    src=""
-    title="PUBG Defeat Theme"
-    frameborder="0"
-    allow="autoplay"
-    loading="eager"
-  ></iframe>
   </div>
   </section>
   
@@ -687,8 +679,8 @@ fetch(sheetURL)
     console.error("Sheet Error:", err);
   });
   </script>
+
   <script>
-  let currentSection = null;
 function showSection(id) {
   // Hide all tournament sections
   document.querySelectorAll('.tournament-section').forEach(section => {
@@ -700,11 +692,9 @@ function showSection(id) {
   if (targetSection) {
     targetSection.style.display = 'block';
   }
-}
 
   // Handle defeat theme playback
   const ytContainer = document.getElementById("defeatYT");
-
   if (id === "results") {
     ytContainer.innerHTML = `
       <iframe 
@@ -713,7 +703,8 @@ function showSection(id) {
         src="https://www.youtube.com/embed/do_ZOBzYI54?autoplay=1&loop=1&playlist=do_ZOBzYI54"
         title="PUBG Defeat Theme"
         frameborder="0"
-        allow="autoplay">
+        allow="autoplay"
+        allowfullscreen>
       </iframe>`;
     ytContainer.style.display = "block";
   } else {
@@ -721,7 +712,7 @@ function showSection(id) {
     ytContainer.style.display = "none";
   }
 }
-</script>
+  </script>
 
 
   <script>
