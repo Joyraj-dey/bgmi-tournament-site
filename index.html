@@ -456,12 +456,16 @@ showSection('upcoming');
 </script>
 <!-- POPUP FORM -->
 <div id="popupForm" class="popup-form" style="display:none;">
-  <form method="POST" action="https://script.google.com/macros/s/AKfycbxv8tFSaoB0eBfpd5NNUyO4sMOBnchicE9zufvxq89sTXIeefsIKTOxCNqu5hlESpU/exec" onsubmit="submitForm(event)">
-  <input type="text" name="Full Name" placeholder="Full Name" required />
-  <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-  <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-  <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-  <button type="submit">Submit</button>
+  <form method="POST" action="YOUR_SCRIPT_URL" onsubmit="submitForm(event)">
+    <h2 style="color:white;">Register Now</h2>
+    
+    <input type="text" name="Full Name" placeholder="Full Name" required />
+    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
+    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+    
+    <button type="submit">Submit</button>
+    <button type="button" onclick="hidePopupForm()">Cancel</button>
   </form>
 </div>
 
