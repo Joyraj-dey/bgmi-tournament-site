@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,29 +41,45 @@
   letter-spacing: 1px;
 }
   
-#loading-overlay {
+/* Initial full-page loader */
+#page-loader {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 12px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 9999;
   transition: opacity 0.4s ease;
 }
-
-#loading-overlay img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-top: 1px;
-}
-
-#loading-overlay.fade-out {
+#page-loader.fade-out {
   opacity: 0;
   pointer-events: none;
+}
+
+/* Click loader overlay (top center) */
+#click-loader {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 12px;
+  border-radius: 12px;
+  z-index: 9999;
+  display: none;
+}
+
+#page-loader img,
+#click-loader img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-top: 1px;
+  object-fit: cover;
 }
 
 /* Animation */
@@ -330,8 +347,13 @@ color: white;
       <div class="slide"><img src="https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg" class="slide-img" /></div>
     </div>
 
-    <!-- Loading Overlay -->
-<div id="loading-overlay">
+<!-- Initial Loader -->
+<div id="page-loader">
+  <img src="https://i.ibb.co/3y489MqD/ezgif-879674d578e8c6.gif" alt="Loading..." />
+</div>
+
+<!-- Click Loader -->
+<div id="click-loader">
   <img src="https://i.ibb.co/3y489MqD/ezgif-879674d578e8c6.gif" alt="Loading..." />
 </div>
     <!-- Clock -->
@@ -826,11 +848,36 @@ if (id === 'results') {
 </script>
   
   <script>
+  // Initial loader hide
   window.addEventListener("load", () => {
-    const loader = document.getElementById("loading-overlay");
-    loader.classList.add("fade-out");
-    setTimeout(() => loader.remove(), 400);
+    const pageLoader = document.getElementById("page-loader");
+    pageLoader.classList.add("fade-out");
+    setTimeout(() => pageLoader.remove(), 400);
   });
+
+  // Show GIF for 1 second on button clicks
+  function showClickLoader() {
+    const loader = document.getElementById("click-loader");
+    loader.style.display = "flex";
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 1000);
+  }
+
+  // Attach to nav buttons
+  const navButtons = document.querySelectorAll("nav button");
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", showClickLoader);
+  });
+
+  // Optional: attach to "Join Now" buttons
+  const joinBtns = document.querySelectorAll(".styled-join-btn");
+  joinBtns.forEach(btn => {
+    btn.addEventListener("click", showClickLoader);
+  });
+
+  // Optional: call showClickLoader before any fetch() manually
   </script>
+  
 </body>
 </html>
