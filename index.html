@@ -59,21 +59,25 @@
   pointer-events: none;
 }
 
-/* Click loader overlay (top center) */
+/* Click loader centered with clean cropped running man */
 #click-loader {
   position: fixed;
-  top: 50px;
-  left: 50px;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 12px;
-  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9999;
   display: none;
 }
 
-#page-loader img,
 #click-loader img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  clip-path: circle(50% at center);
+}
+
+#page-loader img {
   width: 70px;
   height: 70px;
   border-radius: 50%;
