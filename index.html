@@ -454,18 +454,7 @@ document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
 // Load Upcoming section by default
 showSection('upcoming');
 </script>
-<!-- Registration Form -->
-<div id="popupForm" class="popup-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#1f1f1f; padding:20px; border-radius:10px; z-index:999; box-shadow:0 0 15px rgba(0,0,0,0.5);">
-  <form method="POST" action="https://script.google.com/macros/s/AKfycbyd6EQ1NRAQoJpVOKb_Rp7PiB5FuN6Mbayh3OOhaHkvIglWZ4ZdUZaDVmmf3dXf4ZOl8Q/exec" onsubmit="submitForm(event)">
-    <h2 style="color:white;">Register Now</h2>
-    <input type="text" name="Full Name" placeholder="Full Name" required />
-    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-    <button type="submit">Submit</button>
-    <button type="button" onclick="hidePopupForm()">Cancel</button>
-  </form>
-</div>
+
 
 <script>
 // Show the popup form
@@ -478,7 +467,15 @@ function hidePopupForm() {
 document.getElementById("popupForm").style.display = "none";
 }
 </script>
-  <!-- Submit the form to Google Sheet -->
+  <form method="POST" action="https://script.google.com/macros/s/AKfycbxos7yqeaefftshGsCgU2zsIzS3DNMOOyzlhPGfivHJJzE3jY3kaNnep9s14G6vfQlo9Q/exec" onsubmit="submitForm(event)">
+  <input type="text" name="Full Name" placeholder="Full Name" required />
+  <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
+  <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+  <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+  <button type="submit">Submit</button>
+  <button type="button" onclick="hidePopupForm()">Cancel</button>
+  </form>
+  
 <script>
 
 
@@ -795,6 +792,7 @@ function submitForm(e) {
   e.preventDefault();
   const form = e.target;
   const data = {};
+
   for (let i = 0; i < form.elements.length; i++) {
     const el = form.elements[i];
     if (el.name) data[el.name] = el.value;
@@ -805,17 +803,14 @@ function submitForm(e) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   })
-  .then(res => {
-    if (res.ok) {
-      alert("Registration successful!");
-      form.reset();
-      hidePopupForm();
-    } else {
-      alert("Something went wrong. Try again.");
-    }
+  .then(res => res.text())
+  .then(response => {
+    alert("Registration successful!");
+    form.reset();
+    hidePopupForm();
   })
   .catch(err => {
-    alert("Error: " + err.message);
+    alert("Something went wrong: " + err.message);
   });
 }
  </script>
