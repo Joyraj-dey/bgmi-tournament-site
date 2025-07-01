@@ -772,19 +772,11 @@ function showSection(id) {
 
   // Optional: call showClickLoader before any fetch() manually
   </script>
- <script>
-function showPopupForm() {
-  document.getElementById("popupForm").style.display = "block";
-}
-
-function hidePopupForm() {
-  document.getElementById("popupForm").style.display = "none";
-}
- </script>
+ 
     <script>
   document.getElementById("registrationForm").addEventListener("submit", function(e) {
     e.preventDefault();
-    
+
     const form = e.target;
     const formData = {
       "Full Name": form["Full Name"].value,
@@ -800,18 +792,16 @@ function hidePopupForm() {
         "Content-Type": "application/json"
       }
     })
-    .then(response => response.text())
-    .then(text => {
-      alert("Registration Successful: " + text);
+    .then(res => res.text())
+    .then(data => {
+      alert("Success! ✔️");
       form.reset();
-      hidePopupForm();
     })
-    .catch(error => {
-      console.error("Error:", error);
-      alert("Something went wrong. Please try again.");
+    .catch(err => {
+      alert("Something went wrong ❌");
+      console.error("Fetch error:", err);
     });
   });
     </script>
-
 </body>
 </html>
