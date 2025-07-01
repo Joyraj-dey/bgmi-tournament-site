@@ -458,17 +458,14 @@ showSection('upcoming');
 
 <!-- POPUP FORM -->
 <div id="popupForm" class="popup-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#1f1f1f; padding:20px; border-radius:10px; z-index:999; box-shadow:0 0 15px rgba(0,0,0,0.5);">
-  <form method="POST" action="https://script.google.com/macros/s/AKfycbxkXZwHLJtm0dtQgDpuNPh_MrHXvdEl3Gjy4JDsiSLrfGkTfNeGkoH9WGVtlKdyyJiZpg/exec" onsubmit="submitForm(event)">
-        
-    <h2 style="color:white;">Register Now</h2>
-    
-    <input type="text" name="Full Name" placeholder="Full Name" required />
-    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-    
-    <button type="submit">Submit</button>
-    <button type="button" onclick="hidePopupForm()">Cancel</button>
+  <form id="registrationForm">
+  <h2 style="color:white;">Register Now</h2>
+  <input type="text" name="Full Name" placeholder="Full Name" required />
+  <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
+  <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+  <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+  <button type="submit">Submit</button>
+  <button type="button" onclick="hidePopupForm()">Cancel</button>
   </form>
 </div>
   
@@ -785,34 +782,35 @@ function hidePopupForm() {
 }
  </script>
     <script>
-function submitForm(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = {};
-  for (let i = 0; i < form.elements.length; i++) {
-    const el = form.elements[i];
-    if (el.name) data[el.name] = el.value;
-  }
+  document.getElementById("registrationForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = {
+      "Full Name": form["Full Name"].value,
+      "WhatsApp no": form["WhatsApp no"].value,
+      "BGMI Username": form["BGMI Username"].value,
+      "BGMI User ID": form["BGMI User ID"].value
+    };
 
-  fetch(form.action, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => {
-    if (res.ok) {
-      alert("Registration successful!");
+    fetch("https://script.google.com/macros/s/AKfycbxkXZwHLJtm0dtQgDpuNPh_MrHXvdEl3Gjy4JDsiSLrfGkTfNeGkoH9WGVtlKdyyJiZpg/exec", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.text())
+    .then(text => {
+      alert("Registration Successful: " + text);
       form.reset();
-    } else {
-      alert("Something went wrong. Try again.");
-    }
-  })
-  .catch(err => {
-    alert("Error: " + err.message);
+      hidePopupForm();
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("Something went wrong. Please try again.");
+    });
   });
-}
     </script>
 
 </body>
