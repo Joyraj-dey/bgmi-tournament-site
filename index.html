@@ -457,15 +457,13 @@ showSection('upcoming');
 
 <!-- Popup Registration Form -->
 <div id="popupForm" class="popup-form" style="display:none;">
-  <form method="POST" action="https://script.google.com/macros/s/AKfycbyywAReCXh8pCeqYTppCOuIWkQWw2di5036LjXDhi7XFs-XQwtoM_3Dq-OW13tbzI0Ujw/exec" onsubmit="submitForm(event)">
-    <h2>Register Now</h2>
-    <input type="text" name="Full Name" placeholder="Full Name" required />
-    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-    <button type="submit">Submit</button>
-    <button type="button" onclick="hidePopupForm()">Cancel</button>
-  </form>
+ <form method="POST" action="https://script.google.com/macros/s/AKfycbzkuZG91FhIU9t9Zfp1msQLxI2bZpWTaOMZ9TPv-9EFArYOfqVn5vgss7-OQetTWahjmg/exec">
+  <input name="Full Name" placeholder="Full Name" required />
+  <input name="WhatsApp no" placeholder="WhatsApp no" required />
+  <input name="BGMI Username" placeholder="BGMI Username" required />
+  <input name="BGMI User ID" placeholder="BGMI User ID" required />
+  <button type="submit">Submit</button>
+ </form>
 </div>
   
 <script>
@@ -780,33 +778,6 @@ function hidePopupForm() {
   document.getElementById("popupForm").style.display = "none";
 }
 
-function submitForm(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = {};
-  for (let i = 0; i < form.elements.length; i++) {
-    const el = form.elements[i];
-    if (el.name) data[el.name] = el.value;
-  }
-
-  fetch(form.action, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  })
-  .then((res) => {
-    if (res.ok) {
-      alert("Registration successful!");
-      form.reset();
-      hidePopupForm();
-    } else {
-      alert("Something went wrong!");
-    }
-  })
-  .catch((err) => {
-    alert("Error: " + err.message);
-  });
-}
   </script>
  
 
