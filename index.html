@@ -457,13 +457,14 @@ showSection('upcoming');
 
 <!-- Popup Registration Form -->
 <div id="popupForm" class="popup-form" style="display:none;">
- <form method="POST" action="https://script.google.com/macros/s/AKfycbzkuZG91FhIU9t9Zfp1msQLxI2bZpWTaOMZ9TPv-9EFArYOfqVn5vgss7-OQetTWahjmg/exec">
-  <input name="Full Name" placeholder="Full Name" required />
-  <input name="WhatsApp no" placeholder="WhatsApp no" required />
-  <input name="BGMI Username" placeholder="BGMI Username" required />
-  <input name="BGMI User ID" placeholder="BGMI User ID" required />
-  <button type="submit">Submit</button>
- </form>
+  <form method="POST" action="https://script.google.com/macros/s/AKfycbxHhbKjbEw17RQvYxPcFRmLNImzxQeZIDdgN9Q4zTKyDmAzIkGLoYn7wuuOgkPPjeY5ew/exec">
+    <input type="text" name="Full Name" placeholder="Full Name" required />
+    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
+    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+    <button type="submit">Submit</button>
+    <button type="button" onclick="hidePopupForm()">Cancel</button>
+  </form>
 </div>
   
 <script>
@@ -770,15 +771,38 @@ function showSection(id) {
   // Optional: call showClickLoader before any fetch() manually
   </script>
     <script>
-    function showPopupForm() {
+function submitForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch(form.action, {
+    method: "POST",
+    body: data,
+  })
+  .then(res => res.json())
+  .then(response => {
+    if (response.result === "success") {
+      alert("Registration Successful!");
+      form.reset();
+      hidePopupForm();
+    } else {
+      alert("Server Error: " + JSON.stringify(response.error));
+    }
+  })
+  .catch(err => {
+    alert("Fetch Error: " + err.message);
+  });
+}
+
+function showPopupForm() {
   document.getElementById("popupForm").style.display = "block";
 }
 
 function hidePopupForm() {
   document.getElementById("popupForm").style.display = "none";
 }
-
-  </script>
+    </script>
  
 
 </body>
