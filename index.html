@@ -455,17 +455,16 @@ document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
 showSection('upcoming');
 </script>
 
-
-<!-- Registration Popup Form -->
-<div id="popupForm" class="popup-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#1f1f1f; padding:20px; border-radius:10px; z-index:999; box-shadow:0 0 15px rgba(0,0,0,0.5);">
-  <form onsubmit="submitForm(event)">
-    <h2 style="color:white;">Register Now</h2>
-
+<!-- Popup Registration Form -->
+<div id="popupForm" class="popup-form" style="display:none;">
+  <form method="POST" 
+        action="https://script.google.com/macros/s/AKfycby-JzEK7hEk8nQhmec9iELJhW6LrbNmb1MglgcVXpY3XofXURiLTO9DtwyllTDOqQ4/exec" 
+        onsubmit="submitForm(event)">
+    <h2>Register Now</h2>
     <input type="text" name="Full Name" placeholder="Full Name" required />
     <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
     <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
     <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-
     <button type="submit">Submit</button>
     <button type="button" onclick="hidePopupForm()">Cancel</button>
   </form>
@@ -775,43 +774,42 @@ function showSection(id) {
   // Optional: call showClickLoader before any fetch() manually
   </script>
     <script>
-function submitForm(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = {};
-
-  for (let i = 0; i < form.elements.length; i++) {
-    const el = form.elements[i];
-    if (el.name) data[el.name] = el.value;
-  }
-
-  fetch("https://script.google.com/macros/s/AKfycbzeFXzzq7AhJYr-8psjjKtqTMNBekBQGYnYep-z67vLUgMzGn3gBK6rROLNx2jjYnvl/exec", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json" },
-  })
-  .then(res => {
-    if (res.ok) {
-      alert("Registration successful!");
-      form.reset();
-      hidePopupForm();
-    } else {
-      alert("Something went wrong!");
-    }
-  })
-  .catch(err => {
-    alert("Fetch error: " + err.message);
-  });
-}
-
-function hidePopupForm() {
-  document.getElementById("popupForm").style.display = "none";
-}
-      function showPopupForm() {
+  function showPopupForm() {
     document.getElementById("popupForm").style.display = "block";
   }
+
+  function hidePopupForm() {
+    document.getElementById("popupForm").style.display = "none";
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = {};
+    for (let i = 0; i < form.elements.length; i++) {
+      const el = form.elements[i];
+      if (el.name) data[el.name] = el.value;
+    }
+
+    fetch(form.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+    .then((res) => {
+      if (res.ok) {
+        alert("Registration successful!");
+        form.reset();
+        hidePopupForm();
+      } else {
+        alert("Something went wrong!");
+      }
+    })
+    .catch((err) => {
+      alert("Error: " + err.message);
+    });
+  }
     </script>
-  
  
 
 </body>
