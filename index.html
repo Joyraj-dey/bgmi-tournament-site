@@ -467,14 +467,20 @@ function hidePopupForm() {
 document.getElementById("popupForm").style.display = "none";
 }
 </script>
-  <form method="POST" action="https://script.google.com/macros/s/AKfycbxos7yqeaefftshGsCgU2zsIzS3DNMOOyzlhPGfivHJJzE3jY3kaNnep9s14G6vfQlo9Q/exec" onsubmit="submitForm(event)">
-  <input type="text" name="Full Name" placeholder="Full Name" required />
-  <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-  <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-  <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-  <button type="submit">Submit</button>
-  <button type="button" onclick="hidePopupForm()">Cancel</button>
+ <!-- POPUP REGISTRATION FORM -->
+<div id="popupForm" class="popup-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#1f1f1f; padding:20px; border-radius:10px; z-index:999; box-shadow:0 0 15px rgba(0,0,0,0.5);">
+  <form method="POST" 
+        action="https://script.google.com/macros/s/AKfycbxos7yqeaefftshGsCgU2zsIzS3DNMOOyzlhPGfivHJJzE3jY3kaNnep9s14G6vfQlo9Q/exec" 
+        onsubmit="submitForm(event)">
+    <h2 style="color:white; text-align:center;">Register Now</h2>
+    <input type="text" name="Full Name" placeholder="Full Name" required />
+    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
+    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+    <button type="submit">Submit</button>
+    <button type="button" onclick="hidePopupForm()">Cancel</button>
   </form>
+</div>
   
 <script>
 
