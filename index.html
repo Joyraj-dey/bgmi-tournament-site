@@ -457,9 +457,7 @@ showSection('upcoming');
 
 <!-- Popup Registration Form -->
 <div id="popupForm" class="popup-form" style="display:none;">
-  <form method="POST" 
-        action="https://script.google.com/macros/s/AKfycby-JzEK7hEk8nQhmec9iELJhW6LrbNmb1MglgcVXpY3XofXURiLTO9DtwyllTDOqQ4/exec" 
-        onsubmit="submitForm(event)">
+  <form method="POST" action="https://script.google.com/macros/s/AKfycbz_3UGAxVF84qtmSBGVFjBKeEocNy9SP1uoZHrYrzxe87v9mUDT3g_vnOWyROYzD7figw/exec" onsubmit="submitForm(event)">
     <h2>Register Now</h2>
     <input type="text" name="Full Name" placeholder="Full Name" required />
     <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
@@ -774,42 +772,42 @@ function showSection(id) {
   // Optional: call showClickLoader before any fetch() manually
   </script>
     <script>
-  function showPopupForm() {
-    document.getElementById("popupForm").style.display = "block";
+    function showPopupForm() {
+  document.getElementById("popupForm").style.display = "block";
+}
+
+function hidePopupForm() {
+  document.getElementById("popupForm").style.display = "none";
+}
+
+function submitForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = {};
+  for (let i = 0; i < form.elements.length; i++) {
+    const el = form.elements[i];
+    if (el.name) data[el.name] = el.value;
   }
 
-  function hidePopupForm() {
-    document.getElementById("popupForm").style.display = "none";
-  }
-
-  function submitForm(e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = {};
-    for (let i = 0; i < form.elements.length; i++) {
-      const el = form.elements[i];
-      if (el.name) data[el.name] = el.value;
+  fetch(form.action, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+  .then((res) => {
+    if (res.ok) {
+      alert("Registration successful!");
+      form.reset();
+      hidePopupForm();
+    } else {
+      alert("Something went wrong!");
     }
-
-    fetch(form.action, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-    .then((res) => {
-      if (res.ok) {
-        alert("Registration successful!");
-        form.reset();
-        hidePopupForm();
-      } else {
-        alert("Something went wrong!");
-      }
-    })
-    .catch((err) => {
-      alert("Error: " + err.message);
-    });
-  }
-    </script>
+  })
+  .catch((err) => {
+    alert("Error: " + err.message);
+  });
+}
+  </script>
  
 
 </body>
