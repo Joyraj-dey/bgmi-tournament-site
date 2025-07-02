@@ -455,17 +455,74 @@ document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
 showSection('upcoming');
 </script>
 
-<!-- Popup Registration Form -->
-<div id="popupForm" class="popup-form" style="display:none;">
-  <form method="POST" action="https://script.google.com/macros/library/d/1NwTXPFlJGIzZckETqCJzZ2Eb5pfoq5HnXhp7VpuD8IerFsfJGp3ZlQUc/4">
-    <input type="text" name="Full Name" placeholder="Full Name" required />
-    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-    <button type="submit">Submit</button>
-    <button type="button" onclick="hidePopupForm()">Cancel</button>
-  </form>
+<div class="bg-light">
+  <div class="container">
+    <div class="form-container">
+      <h4 class="text-center mb-4">BGMI Tournament Registration</h4>
+      <form id="submit-to-google-sheet">
+        <div class="form-group">
+          <label for="fullName">Full Name:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="Full Name"
+            id="fullName"
+            placeholder="Your full name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">WhatsApp No:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="WhatsApp no"
+            id="whatsapp"
+            placeholder="Enter WhatsApp number"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="username">BGMI Username:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="BGMI Username"
+            id="username"
+            placeholder="Enter BGMI Username"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="userid">BGMI User ID:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="BGMI User ID"
+            id="userid"
+            placeholder="Enter BGMI User ID"
+            required
+          />
+        </div>
+
+        <div class="form-group form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="agree" required />
+          <label class="form-check-label" for="agree">
+            I agree to the rules & terms.
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
+  
   
 <script>
 
@@ -771,29 +828,7 @@ function showSection(id) {
   // Optional: call showClickLoader before any fetch() manually
   </script>
     <script>
-function submitForm(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = new FormData(form);
 
-  fetch(form.action, {
-    method: "POST",
-    body: data,
-  })
-  .then(res => res.json())
-  .then(response => {
-    if (response.result === "success") {
-      alert("Registration Successful!");
-      form.reset();
-      hidePopupForm();
-    } else {
-      alert("Server Error: " + JSON.stringify(response.error));
-    }
-  })
-  .catch(err => {
-    alert("Fetch Error: " + err.message);
-  });
-}
 
 function showPopupForm() {
   document.getElementById("popupForm").style.display = "block";
@@ -803,6 +838,33 @@ function hidePopupForm() {
   document.getElementById("popupForm").style.display = "none";
 }
     </script>
+    
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxfhixJb1y7fIRyCSbsIUJeDLkkfR1KexKlqyWCGwrNmaNz3TCBYwUXZTzEpN16f5U3lw/exec';
+    const form = document.getElementById('bgmi-form');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+          if (data.result === "success") {
+            alert("✅ Registration Successful!");
+            form.reset();
+          } else {
+            alert("❌ Submission Failed");
+            console.error(data.error);
+          }
+        })
+        .catch(error => {
+          alert("⚠️ Error: " + error.message);
+          console.error(error);
+        });
+    });
+  </script>
  
 
 </body>
