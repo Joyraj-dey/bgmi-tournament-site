@@ -789,14 +789,21 @@ function hidePopupForm() {
   });
     </script>
     <script>
-  const sliderWrapper = document.getElementById("slider-wrapper");
-  const slides = sliderWrapper.children.length;
-  let index = 0;
+let currentSlide = 0;
+const slider = document.getElementById("slider-wrapper");
+const totalSlides = slider.children.length;
 
-  setInterval(() => {
-    index = (index + 1) % slides;
-    sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
-  }, 10000); // 10 seconds pause after each slide
+function slideNext() {
+  currentSlide = (currentSlide + 1) % totalSlides;
+  slider.style.transition = "transform 1s ease-in-out";
+  slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  // Wait 10 seconds, then slide again
+  setTimeout(slideNext, 10000);
+}
+
+// Start slider after initial delay
+setTimeout(slideNext, 10000);
     </script>
      
 
