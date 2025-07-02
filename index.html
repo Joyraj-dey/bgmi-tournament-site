@@ -454,41 +454,16 @@ document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
 // Load Upcoming section by default
 showSection('upcoming');
 </script>
-
-<form id="bgmi-form">
-  <input name="Full Name" placeholder="Full Name" required><br>
-  <input name="WhatsApp no" placeholder="WhatsApp no" required><br>
-  <input name="BGMI Username" placeholder="BGMI Username" required><br>
-  <input name="BGMI User ID" placeholder="BGMI User ID" required><br>
-  <button type="submit">Submit</button>
-</form>
-
-<script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwYRb_bicvI-8NI1lPoViGYRbCC_0NW3AnhiaDAKVcOb5wVCqDq289GmFUWDXa9Zco0mA/exec";
-  const form = document.getElementById("bgmi-form");
-
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    const formData = new FormData(form);
-
-    fetch(scriptURL, {
-      method: "POST",
-      body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.result === "success") {
-        alert("Submitted!");
-        form.reset();
-      } else {
-        alert("Something went wrong. Try again!");
-      }
-    })
-    .catch(err => {
-      alert("Fetch Error: " + err.message);
-    });
-  });
-</script>
+  
+<div id="popupForm" class="popup-form">
+  <form id="matchForm">
+    <input type="text" name="Full Name" placeholder="Full Name" required />
+    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
+    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
+    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
+    <button type="submit">Submit</button>
+  </form>
+</div>
   
 <script>
 
@@ -803,6 +778,27 @@ function showPopupForm() {
 function hidePopupForm() {
   document.getElementById("popupForm").style.display = "none";
 }
+    </script>
+    <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzKMdAI1_ZhuLmW9r6LlfApDykVr7DqPomdADFc8lEP5DyBUz7AdQHSVbbEMafuCGrGiA/exec"; // replace with your Web App URL
+  const form = document.getElementById("matchForm");
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      alert("Registration successful!");
+      form.reset();
+    })
+    .catch(error => {
+      alert("Error: " + error.message);
+    });
+  });
     </script>
      
 
