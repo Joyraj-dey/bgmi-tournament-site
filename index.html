@@ -455,65 +455,40 @@ document.getElementById("registration").scrollIntoView({ behavior: "smooth" });
 showSection('upcoming');
 </script>
 
-<section class="bg-light">
-  <div class="container">
-    <div class="form-container">
-      <h4 class="text-center mb-4">BGMI Tournament Registration</h4>
-      <form id="submit-to-google-sheet">
-        <div class="form-group">
-          <label for="fullName">Full Name:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="Full Name"
-            id="fullName"
-            placeholder="Enter your full name"
-            required
-          />
-        </div>
+<form id="bgmi-form">
+  <input name="Full Name" placeholder="Full Name" required><br>
+  <input name="WhatsApp no" placeholder="WhatsApp no" required><br>
+  <input name="BGMI Username" placeholder="BGMI Username" required><br>
+  <input name="BGMI User ID" placeholder="BGMI User ID" required><br>
+  <button type="submit">Submit</button>
+</form>
 
-        <div class="form-group">
-          <label for="whatsapp">WhatsApp no:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="WhatsApp no"
-            id="whatsapp"
-            placeholder="Enter WhatsApp number"
-            required
-          />
-        </div>
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwYRb_bicvI-8NI1lPoViGYRbCC_0NW3AnhiaDAKVcOb5wVCqDq289GmFUWDXa9Zco0mA/exec";
+  const form = document.getElementById("bgmi-form");
 
-        <div class="form-group">
-          <label for="bgmiUsername">BGMI Username:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="BGMI Username"
-            id="bgmiUsername"
-            placeholder="Enter BGMI Username"
-            required
-          />
-        </div>
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const formData = new FormData(form);
 
-        <div class="form-group">
-          <label for="bgmiUserID">BGMI User ID:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="BGMI User ID"
-            id="bgmiUserID"
-            placeholder="Enter BGMI User ID"
-            required
-          />
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">Submit</button>
-      </form>
-    </div>
-  </div>
-</section>
-  
+    fetch(scriptURL, {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.result === "success") {
+        alert("Submitted!");
+        form.reset();
+      } else {
+        alert("Something went wrong. Try again!");
+      }
+    })
+    .catch(err => {
+      alert("Fetch Error: " + err.message);
+    });
+  });
+</script>
   
 <script>
 
@@ -829,32 +804,7 @@ function hidePopupForm() {
   document.getElementById("popupForm").style.display = "none";
 }
     </script>
-    
-
-  <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzueZ8MjKaQXCbaZI0lIAYaB40-c5aITX3mTxjvS5C5uWFWvMAY9INzTfjO2zoITRlFug/exec";
-  const form = document.getElementById("submit-to-google-sheet");
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault(); // prevent page reload
-
-    const formData = new FormData(form);
-
-    fetch(scriptURL, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        alert("✅ Registered successfully!");
-        form.reset();
-      })
-      .catch((error) => {
-        alert("❌ Error: Something went wrong. Please try again.");
-        console.error(error);
-      });
-  });
-  </script>
- 
+     
 
 </body>
 </html>
