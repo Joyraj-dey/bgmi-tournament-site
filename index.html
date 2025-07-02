@@ -790,13 +790,13 @@ function hidePopupForm() {
     </script>
     <script>
   const sliderWrapper = document.getElementById("slider-wrapper");
-  const totalSlides = sliderWrapper.children.length;
-  let currentIndex = 0;
+  const slides = sliderWrapper.children.length;
+  let index = 0;
 
   setInterval(() => {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
-  }, 20000); // 20s per image
+    index = (index + 1) % slides;
+    sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+  }, 20000); // 20 seconds pause after each slide
     </script>
      
 
