@@ -9,16 +9,21 @@
 .slider-container {
   width: 100%;
   height: 350px;
-  position: relative;
   overflow: hidden;
-  background-color: #000;
+  position: relative;
 }
 
-#slider-image {
+.slider-wrapper {
+  display: flex;
+  width: 400%; /* 4 images */
+  height: 100%;
+  transition: transform 1s ease-in-out;
+}
+
+.slider-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 1s ease-in-out;
 }
 /* Clock */
 .real-time-clock {
@@ -324,11 +329,14 @@ color: white;
 <a href="#contact">Contact</a>
 </nav>
 </header>
-
-<section
-  <div class="slider-container">
-  <img id="slider-image" src="https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg" alt="Banner" />
-</div>
+  
+<section class="slider-container">
+  <div class="slider-wrapper" id="slider-wrapper">
+    <img src="https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg" />
+    <img src="https://i.ibb.co/4nsYmy5M/nnmRTFN.jpg" />
+    <img src="https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg" />
+    <img src="https://i.ibb.co/Lqm7zx8/photo-2018-06-20-18-08-18-e1529498512997.jpg" />
+  </div>
 
 <!-- Initial Loader -->
 <div id="page-loader">
@@ -781,23 +789,13 @@ function hidePopupForm() {
   });
     </script>
     <script>
-  const images = [
-    "https://i.ibb.co/5WfXRkXp/0yx6zv6phyu11.jpg",
-    "https://i.ibb.co/4nsYmy5M/nnmRTFN.jpg",
-    "https://i.ibb.co/9kyMsRHf/d5088d193b382e929b277a71bb4ffb0f.jpg",
-    "https://i.ibb.co/Lqm7zx8/photo-2018-06-20-18-08-18-e1529498512997.jpg"
-  ];
-
-  let index = 0;
-  const img = document.getElementById("slider-image");
+  const sliderWrapper = document.getElementById("slider-wrapper");
+  const totalSlides = sliderWrapper.children.length;
+  let currentIndex = 0;
 
   setInterval(() => {
-    index = (index + 1) % images.length;
-    img.style.opacity = 0;
-    setTimeout(() => {
-      img.src = images[index];
-      img.style.opacity = 1;
-    }, 1000); // fade time
+    currentIndex = (currentIndex + 1) % totalSlides;
+    sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
   }, 20000); // 20s per image
     </script>
      
