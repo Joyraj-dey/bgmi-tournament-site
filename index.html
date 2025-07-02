@@ -832,29 +832,27 @@ function hidePopupForm() {
     
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxfhixJb1y7fIRyCSbsIUJeDLkkfR1KexKlqyWCGwrNmaNz3TCBYwUXZTzEpN16f5U3lw/exec';
-    const form = document.getElementById('bgmi-form');
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxfhixJb1y7fIRyCSbsIUJeDLkkfR1KexKlqyWCGwrNmaNz3TCBYwUXZTzEpN16f5U3lw/exec";
+  const form = document.getElementById("submit-to-google-sheet");
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const formData = new FormData(form);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); // prevent page reload
 
-      fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => response.json())
-        .then(data => {
-          if (data.result === "success") {
-            alert("✅ Registration Successful!");
-            form.reset();
-          } else {
-            alert("❌ Submission Failed");
-            console.error(data.error);
-          }
-        })
-        .catch(error => {
-          alert("⚠️ Error: " + error.message);
-          console.error(error);
-        });
-    });
+    const formData = new FormData(form);
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        alert("✅ Registered successfully!");
+        form.reset();
+      })
+      .catch((error) => {
+        alert("❌ Error: Something went wrong. Please try again.");
+        console.error(error);
+      });
+  });
   </script>
  
 
