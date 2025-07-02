@@ -28,8 +28,10 @@
 .slider img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Makes image fill properly */
+  object-fit: contain; /* previously: cover */
+  background-color: #000; /* in case of letterboxing */
 }
+  
 /* Clock */
 .real-time-clock {
   position: absolute;
