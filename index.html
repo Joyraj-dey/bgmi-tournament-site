@@ -19,13 +19,12 @@
   width: 400%; /* For 4 images */
   transition: transform 1s ease-in-out;
 }
-
 .slider img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* <-- This makes sure full image fits */
+  object-fit: contain;
   flex-shrink: 0;
-  background-color: #000; /* avoids white background around image */
+  background-color: #000; /* in case letterbox padding appears */
 }
 /* Clock */
 .real-time-clock {
