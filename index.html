@@ -436,13 +436,14 @@ showSection('upcoming');
 </script>
   
 <div id="popupForm" class="popup-form">
-  <form id="matchForm">
-    <input type="text" name="Full Name" placeholder="Full Name" required />
-    <input type="text" name="WhatsApp no" placeholder="WhatsApp Number" required />
-    <input type="text" name="BGMI Username" placeholder="BGMI Username" required />
-    <input type="text" name="BGMI User ID" placeholder="BGMI User ID" required />
-    <button type="submit">Submit</button>
-    <button type="button" onclick="hidePopupForm()">Cancel</button>
+  <form id="myForm">
+    <input type="date" name="Date" required />
+    <input type="text" name="fullName" placeholder="Full Name" required />
+    <input type="text" name="whatsapp" placeholder="WhatsApp Number" required />
+    <input type="text" name="username" placeholder="BGMI Username" required />
+    <input type="text" name="userId" placeholder="BGMI User ID" required />
+    <button type="submit" class="btn">Submit</button>
+    <p id="status" style="margin-top: 10px; color: #00ff99;"></p>
   </form>
 </div>
   
@@ -761,40 +762,32 @@ function hidePopupForm() {
 }
     </script>
     <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzKMdAI1_ZhuLmW9r6LlfApDykVr7DqPomdADFc8lEP5DyBUz7AdQHSVbbEMafuCGrGiA/exec"; // replace with your Web App URL
-  const form = document.getElementById("matchForm");
+  const scriptURL = '';
+  const form = document.getElementById('myForm');
+  const status = document.getElementById('status');
 
-  form.addEventListener("submit", e => {
+  form.addEventListener('submit', e => {
     e.preventDefault();
-    const formData = new FormData(form);
+    status.textContent = "Submitting...";
 
     fetch(scriptURL, {
-      method: "POST",
-      body: formData
+      method: 'POST',
+      body: new FormData(form)
     })
     .then(response => {
-      alert("Registration successful!");
+      status.textContent = "Registered Successfully ✅";
       form.reset();
+      setTimeout(() => {
+        hidePopupForm();
+        status.textContent = "";
+      }, 1500);
     })
     .catch(error => {
-      alert("Error: " + error.message);
+      console.error('Error!', error.message);
+      status.textContent = "Failed to Submit ❌";
     });
   });
     </script>
-    <script>
-let currentSlide = 0;
-const slider = document.getElementById("slider");
-const totalSlides = slider.children.length;
-
-function slideNext() {
-  currentSlide = (currentSlide + 1) % totalSlides;
-  slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-}
-
-// Slide every 10 seconds
-setInterval(slideNext, 10000);
-    </script>
-     
 
 </body>
 </html>
